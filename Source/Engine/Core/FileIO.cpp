@@ -1,5 +1,6 @@
 #include "FileIO.h"
 #include <fstream>
+#include <iostream>
 
 namespace kiko
 {
@@ -32,6 +33,7 @@ namespace kiko
 	{
 		if (!fileExists(path))
 		{
+			std::cout << "file not Found" << path <<  std::endl;
 			return false;
 		}
 		// get file size and set buffer size

@@ -47,11 +47,10 @@ public:
 //leaving when adding in vector2.h before stream op for the number in {}
 int main(int argc, char* argv[])
 {
+
+
 	// random stuff for memeory
 	kiko::MemoryTracker::Initialize();
-
-	auto m = kiko::Max(4.0f, 3.0f);
-	auto m2 = kiko::Max(4, 3);
 
 	kiko::seedRandom((unsigned int)time(nullptr));
 	kiko::setFilePath("assets");
@@ -75,7 +74,7 @@ int main(int argc, char* argv[])
 	float speed = 500;
 	constexpr float turnRate = kiko::DegreesToRadians(360);
 
-	///Main Loop
+	///Main Loop that runs the game
 	bool quit = false;
 	while (!quit)
 	{
@@ -110,16 +109,11 @@ int main(int argc, char* argv[])
 		//adding text
 		//text->Draw(kiko::g_renderer, 400, 300);
 		// Update and draw stars
-		for (auto& star : stars)
+		for (int i = 0; i < 1000; i++)
 		{
-			star.Update();
-
-			if (star.m_pos.x >= kiko::g_renderer.getWidth())
-				star.m_pos.x = 0;
-			if (star.m_pos.y >= kiko::g_renderer.getHeight())
-				star.m_pos.y = 0;
-
-			kiko::g_renderer.DrawPoint(star.m_pos.x, star.m_pos.y);
+			/*kiko::Vector2 pos(kiko::Vector2(kiko::random(kiko::getdeltatime;
+			kiko::Vector2 vel;
+			stars.push_back(Star(pos,vel))*/
 		}
 		//stars.clear();
 		// Draw model at the current position and enemies around player
