@@ -4,8 +4,8 @@
 class Enemy : public kiko::Actor
 {
 public:
-	Enemy(float speed, float turnRate, const kiko::Transform& transform, std::shared_ptr<kiko::Model> model) :
-		Actor{ transform, model },
+	Enemy(float speed, float turnRate, const kiko::Transform& transform) :
+		Actor{ transform },
 		m_speed{ speed },
 		m_turnRate{ turnRate }//without it calls the default constructor
 	{
@@ -22,5 +22,7 @@ protected:
 
 	float m_firerate = 0;
 	float m_fireTimer = 0;
+
+
 	float m_health = 25;
 };

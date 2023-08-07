@@ -4,29 +4,37 @@
 #include "Enemy.h"
 #include "Audio/AudioSystem.h"
 #include "Framework/Emitter.h"
+#include "Framework/Resource/ResourceManager.h"
+#include "Framework/Components/SpriteComponent.h"
 #include "Input/InputSystem.h"
 #include "Renderer/ModelManager.h"
 #include "Renderer/Renderer.h"
 #include "Renderer/Text.h"
 #include "Renderer/ModelManager.h"
+#include "Framework/Components/EnginePhysicsComponent.h"
 
+
+// This function is responsible for initializing the game state.
+// It creates font and text objects for displaying the score, title, game over text, timer, and winner text.
+// It also loads background music and other audio files.
+// Additionally, it initializes the game scene.
 bool SpaceGame::Initialize()
 {
 	// create font / text objects
-	m_font = std::make_shared<kiko::Font>("arcadeclassic.ttf", 24);
-	m_scoreText = std::make_unique<kiko::Text>(m_font);
+	m_font = kiko::g_resources.Get<kiko::Font>("arcadeclassic.ttf",24);
+	m_scoreText = std::make_unique<kiko::Text>(kiko::g_resources.Get<kiko::Font>("arcadeclassic.ttf", 24));
 	m_scoreText->Create(kiko::g_renderer, "Score 0000", kiko::Color{ 1, 1, 1, 1 });
 
-	m_titleText = std::make_unique<kiko::Text>(m_font);
+	m_titleText = std::make_unique<kiko::Text>(kiko::g_resources.Get<kiko::Font>("arcadeclassic.ttf", 24));
 	m_titleText->Create(kiko::g_renderer, "asteroid", kiko::Color{ 1, 1, 1, 1 });
 
-	m_gameovertext = std::make_unique<kiko::Text>(m_font);
+	m_gameovertext = std::make_unique<kiko::Text>(kiko::g_resources.Get<kiko::Font>("arcadeclassic.ttf", 24));
 	m_gameovertext->Create(kiko::g_renderer, "GameOVER", kiko::Color{ 1, 1, 1, 1 });
 
-	m_timerText = std::make_unique<kiko::Text>(m_font);
+	m_timerText = std::make_unique<kiko::Text>(kiko::g_resources.Get<kiko::Font>("arcadeclassic.ttf", 24));
 	m_timerText->Create(kiko::g_renderer, "Timer", kiko::Color{ 1, 1, 1, 1 });
 
-	m_winnerText = std::make_unique<kiko::Text>(m_font);
+	m_winnerText = std::make_unique<kiko::Text>(kiko::g_resources.Get<kiko::Font>("arcadeclassic.ttf", 24));
 	m_winnerText->Create(kiko::g_renderer, "You Win", kiko::Color{ 1, 1, 1, 1 });
 
 	//load background music
@@ -59,7 +67,6 @@ void SpaceGame::Update(float dt)
 		if (kiko::g_inputSystem.GetKeyDown(SDL_SCANCODE_SPACE))
 		{
 			m_state = eState::StartGame;
-
 		}
 		//reset score/timer
 		m_score = 0;
@@ -73,12 +80,21 @@ void SpaceGame::Update(float dt)
 
 	case SpaceGame::eState::StartLevel:
 	{
+		//Create Player
 		m_scene->RemoveAll();
-		std::unique_ptr<Player> player = std::make_unique<Player>(10.0f, kiko::Pi, kiko::Transform{ {400, 300}, 0, 4 }, kiko::g_manager.Get("ship.txt"));
+		auto player = std::make_unique<Player>(10.0f, kiko::Pi, kiko::Transform{ {400, 300}, 0, 4 });
 		player->m_tag = "Player";
 		player->m_game = this;
-		player->SetDamping(0.9f); // slows player down when floating
+
 		player->m_game = this;
+		//create Components
+		std::unique_ptr<kiko::SpriteComponent> component = std::make_unique<kiko::SpriteComponent>();
+		component->m_texture = kiko::g_resources.Get<kiko::Texture>("bettership.png", kiko::g_renderer);
+		player->AddComponent(std::move(component));
+			//adding physics
+		auto physicsComponent = std::make_unique<kiko::EnginePhysicsComponent>();
+		player->AddComponent(std::move(physicsComponent));
+
 		m_scene->Add(std::move(player));
 	}
 	m_state = eState::Game;
@@ -92,6 +108,18 @@ void SpaceGame::Update(float dt)
 		{
 			m_state = eState::Winner;
 		}
+		if (m_spawnTimer >= m_spawnTime)
+		{
+			m_spawnTimer = 0;
+			std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(kiko::randomf(75.0f, 15.0f),kiko::Pi, kiko::Transform{ {kiko::random(kiko::g_renderer.getWidth()), kiko::random(kiko::g_renderer.getHeight())}, kiko::randomf(kiko::TwoPi), 4 });
+			enemy->m_tag = "Enemy";
+			enemy->m_game = this;
+			//create components
+			std::unique_ptr<kiko::SpriteComponent> component = std::make_unique<kiko::SpriteComponent>();
+			component->m_texture = kiko::g_resources.Get<kiko::Texture>("bettership.png", kiko::g_renderer);
+			enemy->AddComponent(std::move(component));
+			m_scene->Add(std::move(enemy));
+		}
 
 		// Restart the game on 'R' key press
 		if (kiko::g_inputSystem.GetKeyDown(SDL_SCANCODE_R))
@@ -100,40 +128,28 @@ void SpaceGame::Update(float dt)
 			m_state = eState::Title;
 			m_scene->RemoveAll();
 		}
-
-		if (m_spawnTimer >= m_spawnTime)
+		/// pressed mouse spawns particle
+		if (kiko::g_inputSystem.GetMouseButtonDown(0))
 		{
-			// spawn timer back to 0
-			m_spawnTimer = 0;
-			// creates enemy after the timer hits 0
-			std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(kiko::randomf(75.0f, 150.0f), kiko::Pi, kiko::Transform{ {kiko::random(kiko::g_renderer.getWidth()), kiko::random(kiko::g_renderer.getHeight())}, kiko::randomf(kiko::TwoPi), 4 }, kiko::g_manager.Get("enemyship.txt"));
-			enemy->m_tag = "Enemy";
-			enemy->m_game = this;
-			m_scene->Add(std::move(enemy));
-
-			/// pressed mouse spawns particle
-			if (kiko::g_inputSystem.GetMouseButtonDown(0))
-			{
-				kiko::g_audioSystem.PlayOneShot("laser");
-				/// emitter stuff
-				kiko::EmitterData data;
-				data.burst = true;
-				data.burstCount = 100;
-				data.spawnRate = 200;
-				data.angle = 0;
-				data.angleRange = kiko::Pi;
-				data.lifetimeMin = 0.5f;
-				data.lifetimeMax = 1.5f;
-				data.speedMin = 50;
-				data.speedMax = 250;
-				data.damping = 0.5f;
-				data.color = kiko::Color{ 1, 0, 0, 1 };
-				kiko::Transform transform{ {kiko::g_inputSystem.GetMousePosition() }, 0, 1 };
-				auto emitter = std::make_unique<kiko::Emitter>(transform, data);
-				emitter->m_lifespan = 1.0f;
-				m_scene->Add(std::move(emitter));
-			} // emitter stuff
-		}
+			kiko::g_audioSystem.PlayOneShot("laser");
+			/// emitter stuff
+			kiko::EmitterData data;
+			data.burst = true;
+			data.burstCount = 100;
+			data.spawnRate = 200;
+			data.angle = 0;
+			data.angleRange = kiko::Pi;
+			data.lifetimeMin = 0.5f;
+			data.lifetimeMax = 1.5f;
+			data.speedMin = 50;
+			data.speedMax = 250;
+			data.damping = 0.5f;
+			data.color = kiko::Color{ 1, 0, 0, 1 };
+			kiko::Transform transform{ {kiko::g_inputSystem.GetMousePosition() }, 0, 1 };
+			auto emitter = std::make_unique<kiko::Emitter>(transform, data);
+			emitter->m_lifespan = 1.0f;
+			m_scene->Add(std::move(emitter));
+		} // emitter stuff
 		break;
 	case eState::PlayerDeadStart:
 		m_stateTimer = 3;

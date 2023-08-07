@@ -6,8 +6,8 @@ namespace kiko
 	class Laser : public Actor
 	{
 	public:
-		Laser(float speed, const kiko::Transform& transform, std::shared_ptr<kiko::Model> model) :
-			Actor{ transform, model },
+		Laser(float speed, const kiko::Transform& transform) :
+			Actor{ transform },
 			m_speed{ speed }
 		{
 			m_lifespan = 2.0f;

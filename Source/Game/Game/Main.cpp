@@ -1,27 +1,30 @@
-#include <iostream>
-#include <thread>
 #include <vector>
 #include "Core/Core.h"
 #include <Renderer/Renderer.h>
-#include <Renderer/Model.h>
 #include "Input/InputSystem.h"
+#include "Audio/AudioSystem.h"
+#include "Renderer/Text.h"
+#include "Renderer/ParticleSystem.h"
+#include <memory>
+#include "SpaceGame.h"
+#include "Framework/Resource/ResourceManager.h"
+#include "Renderer/ModelManager.h"
+#include <cassert>
+#include <iostream>
+#include <Renderer/Model.h>
 #include "Framework/Actor.h"
 #include "Enemy.h"
 #include "Player.h"
-#include "Audio/AudioSystem.h"
 #include "Framework/Scene.h"
 #include "Renderer/Font.h"
-#include "Renderer/Text.h"
-#include "Renderer/ParticleSystem.h"
-#include <thread>
-#include <memory>
 #include <Framework/Emitter.h>
 
-#include "SpaceGame.h"
-#include "Renderer/ModelManager.h"
+#include "Renderer/texture.h"
+#include "Renderer/texture.h"
 
 using namespace std;
 
+// Star class represents a point in the game, moving with a velocity
 class Star
 {
 public:
@@ -32,11 +35,13 @@ public:
 
 	void Update()
 	{
+		// Update the position based on velocity and time
 		m_pos += m_vel * kiko::g_time.GetDeltaTime();
 	}
 
 	void Draw(kiko::Renderer& renderer)
 	{
+		// Draw the star as a point
 		renderer.DrawPoint(m_pos.x, m_pos.y);
 	}
 
@@ -44,82 +49,95 @@ public:
 	kiko::vec2 m_pos;
 	kiko::vec2 m_vel;
 };
-//leaving when adding in vector2.h before stream op for the number in {}
+
+
+
 int main(int argc, char* argv[])
 {
 
-
-	// random stuff for memeory
-	kiko::MemoryTracker::Initialize();
-
+	INFO_LOG("Initializing Game")
+		// Initialize the game engine
+		kiko::MemoryTracker::Initialize();
 	kiko::seedRandom((unsigned int)time(nullptr));
 	kiko::setFilePath("assets");
 
-	//for video render
+	// Initialize the renderer
 	kiko::g_renderer.Initialize();
 	kiko::g_renderer.CreateWindow("CSC196", 800, 600);
 
-	//for audio
+	// Initialize audio and input systems
 	kiko::AudioSystem audioSystem;
 	kiko::g_audioSystem.Initialize();
-	//for global input
 	kiko::g_inputSystem.Initialize();
 
-	//create Game
+	// Create the game
 	unique_ptr<SpaceGame> game = make_unique<SpaceGame>();
 	game->Initialize();
 
+
+	// Create a vector to store stars
 	std::vector<Star> stars;
 
-	float speed = 500;
-	constexpr float turnRate = kiko::DegreesToRadians(360);
-
-	///Main Loop that runs the game
+	// Main Loop that runs the game
 	bool quit = false;
 	while (!quit)
 	{
-		///update engine
+		// Update engine components
 		kiko::g_time.Tick();
 		kiko::g_inputSystem.Update();
 		kiko::g_audioSystem.Update();
-
 		kiko::g_particleSystem.Update(kiko::g_time.GetDeltaTime());
 
-		if (kiko::g_inputSystem.GetKeyDown(SDL_SCANCODE_ESCAPE)) // using the escape key to break out of loop and exit program
+		// Check for quit condition (using the escape key)
+		if (kiko::g_inputSystem.GetKeyDown(SDL_SCANCODE_ESCAPE))
 		{
 			quit = true;
 		}
-		kiko::g_audioSystem.PlayOneShot("background", true);//loops
 
-		///plays a one shot of a sound declared above.
+		// Play background audio
+		kiko::g_audioSystem.PlayOneShot("background", true);
+
+		// Play a one-shot audio when space key is pressed
 		if (kiko::g_inputSystem.GetKeyDown(SDL_SCANCODE_SPACE))
 		{
 			kiko::g_audioSystem.PlayOneShot("hit");
 		}
 
-		///update scene
+		// Update the game scene
 		game->Update(kiko::g_time.GetDeltaTime());
 
-		/// draw
-		kiko::g_renderer.setColor(0, 0, 0, 0); // Sets color to black
-		kiko::g_renderer.BeginFrame(); // Clears the screen, allows for less static
+		// Set the renderer color to black and clear the screen
+		kiko::g_renderer.setColor(0, 0, 0, 0);
+		kiko::g_renderer.BeginFrame();
 
-		//kiko::g_renderer.setColor(kiko::random(256), kiko::random(256), kiko::random(256), 255);
+		// Draw the stars
 		kiko::g_renderer.setColor(255, 255, 255, 255);
-		//adding text
-		//text->Draw(kiko::g_renderer, 400, 300);
-		// Update and draw stars
 		for (int i = 0; i < 1000; i++)
 		{
-			/*kiko::Vector2 pos(kiko::Vector2(kiko::random(kiko::getdeltatime;
-			kiko::Vector2 vel;
-			stars.push_back(Star(pos,vel))*/
+			kiko::Vector2 pos(kiko::Vector2(kiko::random(kiko::g_renderer.getWidth()), kiko::random(kiko::g_renderer.getHeight())));
+			kiko::Vector2 vel(kiko::randomf(100, 200), 0.0f);
+
+			stars.push_back(Star(pos, vel));
 		}
-		//stars.clear();
-		// Draw model at the current position and enemies around player
+
+		// Draw the game elements and particles
 		game->Draw(kiko::g_renderer);
 		kiko::g_particleSystem.Draw(kiko::g_renderer);
 
+		// Update and draw the stars
+		for (auto& star : stars)
+		{
+			star.Update();
+
+			if (star.m_pos.x >= kiko::g_renderer.getWidth()) star.m_pos.x = 0;
+			if (star.m_pos.y >= kiko::g_renderer.getHeight()) star.m_pos.y = 0;
+
+			kiko::g_renderer.setColor(kiko::random(256), kiko::random(256), kiko::random(256), 255);
+			kiko::g_renderer.DrawPoint(star.m_pos.x, star.m_pos.y);
+		}
+		stars.clear(); // clears the stars
+
+		// End the frame and present it
 		kiko::g_renderer.EndFrame();
 	}
 

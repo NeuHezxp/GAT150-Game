@@ -1,31 +1,43 @@
 #include "Logger.h"
-
+#include "FileIO.h"
 #include <iostream>
 
 namespace kiko
 {
-    Logger g_logger(LogLevel::Info, &std::cout);
-	bool Logger::Log(LogLevel logLevel, const std::string& filename, int line)
-	{
-		if (logLevel < m_logLevel) return false;
+    // Global instance of the Logger class with log level set to Info,
+    // output stream set to std::cout (console), and optional file name "log.txt" for file logging.
+    Logger g_logger(LogLevel::Info, &std::cout, "log.txt");
+
+    // Implementation of the Log function of the Logger class.
+    // This function logs the message with the specified log level, file name, and line number.
+    bool Logger::Log(LogLevel logLevel, const std::string& filename, int line)
+    {
+        if (logLevel < m_logLevel)
+            return false; ///If log level is less than current log level, return false
+
+        // Switch statement to determine the log level and append the corresponding prefix to the message.
         switch (logLevel)
         {
         case LogLevel::Info:
-            *m_ostream << "INFO: ";
+            *this << "INFO: ";
             break;
         case LogLevel::Warning:
-            *m_ostream << "WARNING: ";
+            *this << "WARNING: ";
             break;
         case LogLevel::Error:
-            *m_ostream << "ERROR: ";
+            *this << "ERROR: ";
             break;
         case LogLevel::Assert:
-            *m_ostream << "ASSERT: ";
+            *this << "ASSERT: ";
             break;
         default:
             break;
         }
-       * m_ostream << filename << "(" << line << ")\n";
-	}
-   
+
+        // Append the file name and line number to the message.
+        *this << getFileName(filename) << "(" << line << ") ";
+
+        // Return true, indicating that the message has been logged.
+        return true;
+    }
 }

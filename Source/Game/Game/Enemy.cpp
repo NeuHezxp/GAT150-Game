@@ -41,7 +41,7 @@ void Enemy::Update(float dt)
 		m_fireTimer = m_firerate;
 		//create weapon
 		kiko::Transform transform{m_transform.position, m_transform.rotation, .5f};
-		std::unique_ptr<kiko::Laser> laser = std::make_unique<kiko::Laser>(400.0f, transform, m_model);
+		std::unique_ptr<kiko::Laser> laser = std::make_unique<kiko::Laser>(400.0f, transform);
 		m_scene->Add(std::move(laser));
 	}
 	else
