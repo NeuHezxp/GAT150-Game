@@ -10,4 +10,5 @@ namespace kiko
 	{
 		 //m_model->Draw(renderer, m_owner->m_transform);
 	}
+	
 }

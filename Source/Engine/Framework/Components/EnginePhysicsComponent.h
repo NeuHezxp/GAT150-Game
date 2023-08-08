@@ -7,7 +7,7 @@ namespace kiko
     {
     public:
         virtual void Update(float dt) override;
-        virtual void ApplyForce(const vec2& force);
+        virtual void ApplyForce(const vec2& force) override ;
 
     };
 }

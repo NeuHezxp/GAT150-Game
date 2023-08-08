@@ -11,6 +11,7 @@
 #include "Renderer/Renderer.h"
 #include "Renderer/Text.h"
 #include "Renderer/ModelManager.h"
+#include "Framework/Components/PhysicsComponent.h"
 #include "Framework/Components/EnginePhysicsComponent.h"
 
 
