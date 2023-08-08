@@ -13,7 +13,8 @@ public:
 		m_fireTimer = m_firerate;
 	}
 
-	void Update(float dt) override; //dt for delta time
+	void Update(float dt) override; //dt 
+	
 	void OnCollision(Actor* other) override;
 
 protected:

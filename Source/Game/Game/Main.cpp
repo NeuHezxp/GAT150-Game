@@ -24,7 +24,7 @@
 
 using namespace std;
 
-// Star class represents a point in the game, moving with a velocity
+// Star class represents a point in the game, moving with a velocity to 
 class Star
 {
 public:
@@ -77,6 +77,13 @@ int main(int argc, char* argv[])
 
 	// Create a vector to store stars
 	std::vector<Star> stars;
+	for (int i = 0; i < 1000; i++)
+	{
+		kiko::Vector2 pos(kiko::Vector2(kiko::random(kiko::g_renderer.getWidth()), kiko::random(kiko::g_renderer.getHeight())));
+		kiko::Vector2 vel(kiko::randomf(100, 200), 0.0f);
+
+		stars.push_back(Star(pos, vel));
+	}
 
 	// Main Loop that runs the game
 	bool quit = false;
@@ -112,18 +119,13 @@ int main(int argc, char* argv[])
 
 		// Draw the stars
 		kiko::g_renderer.setColor(255, 255, 255, 255);
-		for (int i = 0; i < 1000; i++)
-		{
-			kiko::Vector2 pos(kiko::Vector2(kiko::random(kiko::g_renderer.getWidth()), kiko::random(kiko::g_renderer.getHeight())));
-			kiko::Vector2 vel(kiko::randomf(100, 200), 0.0f);
-
-			stars.push_back(Star(pos, vel));
-		}
-
+		
+		
 		// Draw the game elements and particles
 		game->Draw(kiko::g_renderer);
 		kiko::g_particleSystem.Draw(kiko::g_renderer);
-
+		// Create a vector to store stars
+		
 		// Update and draw the stars
 		for (auto& star : stars)
 		{
@@ -135,11 +137,11 @@ int main(int argc, char* argv[])
 			kiko::g_renderer.setColor(kiko::random(256), kiko::random(256), kiko::random(256), 255);
 			kiko::g_renderer.DrawPoint(star.m_pos.x, star.m_pos.y);
 		}
-		stars.clear(); // clears the stars
+		
 
 		// End the frame and present it
 		kiko::g_renderer.EndFrame();
 	}
-
+	stars.clear(); // clears the stars
 	return 0;
 }
