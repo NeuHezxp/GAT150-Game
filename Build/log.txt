@@ -1,1 +1,2 @@
-INFO: Main.cpp(58) Initializing Game
+INFO: Main.cpp(54) Initializing Game
+INFO: Main.cpp(83) Updating engine Components in main

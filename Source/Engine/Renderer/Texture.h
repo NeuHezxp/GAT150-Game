@@ -1,7 +1,10 @@
 #pragma once
 
+#include <SDL2-2.28.0/include/SDL_render.h>
+
 #include "Core/vector2.h" // Include the vector2 header file which presumably contains the definition of the vec2 class.
 #include "Framework/Resource/Resource.h"
+
 struct SDL_Texture; // Forward declaration of the SDL_Texture struct, indicating that it will be used but not defined in this header.
 
 namespace kiko

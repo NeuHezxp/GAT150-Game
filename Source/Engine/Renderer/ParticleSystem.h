@@ -1,11 +1,12 @@
 #pragma once
 #include <vector>
 #include "Particle.h"
-#include "Renderer.h"
+
 #include "Core/Core.h"
 
 namespace kiko
 {
+	class Renderer;
 	class ParticleSystem
 	{
 	public:
@@ -15,7 +16,7 @@ namespace kiko
 			m_particles.resize(maxCount);
 		}
 		void Update(float dt);
-		void Draw(kiko::Renderer& renderer);
+		void Draw(Renderer& renderer);
 		Particle* GetFreeParticle();
 	private:
 		std::vector<Particle> m_particles;

@@ -3,6 +3,12 @@
 #include <SDL2-2.28.0/include/SDL_render.h>
 #include <SDL2-2.28.0/include/SDL_video.h>
 #include <SDL2-2.28.0/include/SDL.h>
+#include "Font.h"
+#include "Model.h"
+#include "Particle.h"
+#include "ParticleSystem.h"
+#include "Text.h"
+#include "Texture.h"
 
 namespace kiko
 {
@@ -46,7 +52,8 @@ namespace kiko
 		int getWidth() const { return m_width; }
 		int getHeight() const { return m_height; }
 		SDL_Renderer* getRenderer() const { return m_renderer; }
-
+		friend class Texture;
+		friend class Text;
 	private:
 		//width height of renderer
 		int m_width = 0;
@@ -55,7 +62,7 @@ namespace kiko
 		SDL_Renderer* m_renderer = nullptr;
 		SDL_Window* m_window = nullptr;
 
-		friend class Text;
+
 	};
 	extern Renderer g_renderer;
 }

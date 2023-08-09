@@ -1,4 +1,5 @@
 #include <vector>
+#include "Framework/Framework.h"
 #include "Core/Core.h"
 #include <Renderer/Renderer.h>
 #include "Input/InputSystem.h"
@@ -7,20 +8,16 @@
 #include "Renderer/ParticleSystem.h"
 #include <memory>
 #include "SpaceGame.h"
-#include "Framework/Resource/ResourceManager.h"
-#include "Renderer/ModelManager.h"
 #include <cassert>
+#include "Renderer/Renderer.h"
 #include <iostream>
 #include <Renderer/Model.h>
-#include "Framework/Actor.h"
 #include "Enemy.h"
 #include "Player.h"
-#include "Framework/Scene.h"
 #include "Renderer/Font.h"
-#include <Framework/Emitter.h>
+#include "Renderer/texture.h"
+#include "Renderer/texture.h"
 
-#include "Renderer/texture.h"
-#include "Renderer/texture.h"
 
 using namespace std;
 
@@ -49,7 +46,6 @@ public:
 	kiko::vec2 m_pos;
 	kiko::vec2 m_vel;
 };
-
 
 
 int main(int argc, char* argv[])
@@ -84,11 +80,12 @@ int main(int argc, char* argv[])
 
 		stars.push_back(Star(pos, vel));
 	}
-
+	INFO_LOG("Updating engine Components in main")
 	// Main Loop that runs the game
 	bool quit = false;
 	while (!quit)
 	{
+		
 		// Update engine components
 		kiko::g_time.Tick();
 		kiko::g_inputSystem.Update();

@@ -12,6 +12,7 @@
 #include "Framework/Components/PhysicsComponent.h"
 #include "Framework/Components/SpriteComponent.h"
 #include "Framework/Resource/ResourceManager.h"
+#include "Renderer/Renderer.h"
 
 void Player::Update(float dt)
 {

@@ -1,6 +1,7 @@
 #include "Model.h"
 #include <sstream>
 #include <iostream>
+#include "Renderer.h"
 
 namespace kiko
 {
