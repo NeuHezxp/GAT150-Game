@@ -110,10 +110,10 @@ namespace kiko
 
 		// Create a destination rectangle for rendering the texture
 		SDL_Rect dest;
-		dest.x = static_cast<float>(x) -size.x * .5; //shifting origin
-		dest.y = static_cast<float>(y) -size.y * .5; //shifting origin
-		dest.w = static_cast<float>(size.x);
-		dest.h = static_cast<float>(size.y);
+		dest.x = static_cast<int>(x) -size.x * .5f; //shifting origin
+		dest.y = static_cast<int>(y) -size.y * .5f; //shifting origin
+		dest.w = static_cast<int>(size.x);
+		dest.h = static_cast<int>(size.y);
 
 		// Render the texture with an optional rotation angle
 		SDL_RenderCopyEx(m_renderer, texture->GetTexture(), nullptr, &dest, angle, nullptr, SDL_FLIP_NONE);
