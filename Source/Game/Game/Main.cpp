@@ -4,19 +4,10 @@
 #include <Renderer/Renderer.h>
 #include "Input/InputSystem.h"
 #include "Audio/AudioSystem.h"
-#include "Renderer/Text.h"
 #include "Renderer/ParticleSystem.h"
 #include <memory>
 #include "SpaceGame.h"
 #include <cassert>
-#include "Renderer/Renderer.h"
-#include <iostream>
-#include <Renderer/Model.h>
-#include "Enemy.h"
-#include "Player.h"
-#include "Renderer/Font.h"
-#include "Renderer/texture.h"
-#include "Renderer/texture.h"
 
 
 using namespace std;
@@ -67,7 +58,7 @@ int main(int argc, char* argv[])
 	kiko::g_inputSystem.Initialize();
 
 	// Create the game
-	unique_ptr<SpaceGame> game = make_unique<SpaceGame>();
+	auto game = make_unique<SpaceGame>();
 	game->Initialize();
 
 
@@ -75,7 +66,7 @@ int main(int argc, char* argv[])
 	std::vector<Star> stars;
 	for (int i = 0; i < 1000; i++)
 	{
-		kiko::Vector2 pos(kiko::Vector2(kiko::random(kiko::g_renderer.getWidth()), kiko::random(kiko::g_renderer.getHeight())));
+		auto pos(kiko::Vector2(kiko::random(kiko::g_renderer.getWidth()), kiko::random(kiko::g_renderer.getHeight())));
 		kiko::Vector2 vel(kiko::randomf(100, 200), 0.0f);
 
 		stars.push_back(Star(pos, vel));
@@ -131,7 +122,7 @@ int main(int argc, char* argv[])
 			if (star.m_pos.x >= kiko::g_renderer.getWidth()) star.m_pos.x = 0;
 			if (star.m_pos.y >= kiko::g_renderer.getHeight()) star.m_pos.y = 0;
 
-			kiko::g_renderer.setColor(kiko::random(256), kiko::random(256), kiko::random(256), 255);
+			kiko::g_renderer.setColor(kiko::random(256), kiko::random(256), kiko::random(256), 255);  
 			kiko::g_renderer.DrawPoint(star.m_pos.x, star.m_pos.y);
 		}
 		

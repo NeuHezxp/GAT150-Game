@@ -1,5 +1,6 @@
 #pragma once
 #include "vector2.h"
+#include "Math/Matrix33.h"
 
 #include "Math/Maxtrix22.h"
 
@@ -19,12 +20,14 @@ namespace kiko
 			rotation{ rotation },
 			scale{ scale }
 		{}
-		mat2 const GetMatrix() const
+		mat3 GetMatrix() const
 		{
-			mat2 ms = mat2::CreateScale(scale);
-			mat2 mr = mat2::CreateRotation(rotation);
+			mat3 ms = mat3::CreateScale(scale);
+			mat3 mr = mat3::CreateRotation(rotation);
+			mat3 mt = mat3::CreateTranslation(position);
+			mat3 mx = mt * ms * mr; ///translate * scale * rotation
 
-			return ms * mr;
+			return mx;
 		}
 		
 	};

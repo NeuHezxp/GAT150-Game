@@ -20,7 +20,7 @@ namespace kiko
         std::cout << buffer << std::endl;
 
         std::istringstream stream(buffer);
-        // Read color (presumably in the format "r g b a")
+        // Read color ( in the format "r g b a")
         stream >> m_color;
 
         // Read number of points from the next line
@@ -62,13 +62,13 @@ namespace kiko
         //pasted the one from above
         if (m_points.empty()) return;
 
-        mat2 mx = transform.GetMatrix();
+        mat3 mx = transform.GetMatrix();
 
         renderer.setColor(Color::toInt(m_color.r), Color::toInt(m_color.g), Color::toInt(m_color.b), Color::toInt(m_color.a));
         for (int i = 0; i < m_points.size() - 1; i++)
         {
-            vec2 p1 = (mx * m_points[i]) + transform.position;
-            vec2 p2 = (mx * m_points[i + 1]) + transform.position;
+            vec2 p1 = (mx * m_points[i]);
+            vec2 p2 = mx * m_points[i + 1];
 
             renderer.DrawLine(p1.x, p1.y, p2.x, p2.y);
         }

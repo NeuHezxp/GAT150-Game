@@ -3,7 +3,6 @@
 #include "Enemy.h"
 #include "Audio/AudioSystem.h"
 #include "Input/InputSystem.h"
-#include "Renderer/Text.h"
 
 #include "Renderer/Renderer.h"
 #include "Framework/Framework.h"
@@ -84,7 +83,7 @@ void SpaceGame::Update(float dt)
 
 		player->m_game = this;
 		//create Components
-		std::unique_ptr<kiko::ModelRenderComponent> component = std::make_unique<kiko::ModelRenderComponent>(); //changed this from model to ModelRenderComponent
+		auto component = std::make_unique<kiko::ModelRenderComponent>(); //changed this from model to ModelRenderComponent
 		component->m_model = kiko::g_resources.Get<kiko::Model>("ship.txt");//this to
 		player->AddComponent(std::move(component));
 			//adding physics
@@ -107,11 +106,11 @@ void SpaceGame::Update(float dt)
 		if (m_spawnTimer >= m_spawnTime)
 		{
 			m_spawnTimer = 0;
-			std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(kiko::randomf(75.0f, 15.0f),kiko::Pi, kiko::Transform{ {kiko::random(kiko::g_renderer.getWidth()), kiko::random(kiko::g_renderer.getHeight())}, kiko::randomf(kiko::TwoPi), 4 });
+			auto enemy = std::make_unique<Enemy>(kiko::randomf(75.0f, 15.0f),kiko::Pi, kiko::Transform{ {kiko::random(kiko::g_renderer.getWidth()), kiko::random(kiko::g_renderer.getHeight())}, kiko::randomf(kiko::TwoPi), 4 });
 			enemy->m_tag = "Enemy";
 			enemy->m_game = this;
 			//create components
-			std::unique_ptr<kiko::SpriteComponent> component = std::make_unique<kiko::SpriteComponent>();
+			auto component = std::make_unique<kiko::SpriteComponent>();
 			component->m_texture = kiko::g_resources.Get<kiko::Texture>("bettership.png", kiko::g_renderer);
 			enemy->AddComponent(std::move(component));
 			m_scene->Add(std::move(enemy));
@@ -191,7 +190,7 @@ void SpaceGame::Update(float dt)
 	}
 	m_scoreText->Create(kiko::g_renderer, std::to_string(m_score), { 1, 1, 1, 1 });
 	m_timerText->Create(kiko::g_renderer, std::to_string((int)m_gameTimer), { 1, 1, 1, 1 });
-	m_winnerText->Create(kiko::g_renderer, ("Winner"), { 1, 1, 1, 1 });
+	m_winnerText->Create(kiko::g_renderer, "Winner", { 1, 1, 1, 1 });
 	m_scene->Update(dt);
 }
 
