@@ -18,7 +18,7 @@ namespace kiko
 
 		virtual bool Create(std::string filename, ...) override; // Function to create a texture from an image file.
 		bool Load(const std::string& filename, class Renderer& renderer); // Function to load a texture from a file.
-		vec2 GetSize(); // Function to get the size (width and height) of the texture.
+		vec2 GetSize() const; // Function to get the size (width and height) of the texture.
 
 		SDL_Texture* GetTexture() const { return m_texture; } // Public getter function to access the m_texture member variable.
 

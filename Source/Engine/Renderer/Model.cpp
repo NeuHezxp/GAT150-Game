@@ -5,6 +5,11 @@
 
 namespace kiko
 {
+	bool Model::Create(std::string filename, ...)
+	{
+		return Load(filename);
+	}
+
     // This function loads the model data from the specified file.
     // It reads the color, number of points, and vector2 points from the file and populates the corresponding member variables.
     bool Model::Load(const std::string filename)
@@ -52,13 +57,29 @@ namespace kiko
             renderer.DrawLine(p1.x, p1.y, p2.x, p2.y);
         }
     }
+    void Model::Draw(Renderer& renderer, const Transform& transform)
+    {
+        //pasted the one from above
+        if (m_points.empty()) return;
+
+        mat2 mx = transform.GetMatrix();
+
+        renderer.setColor(Color::toInt(m_color.r), Color::toInt(m_color.g), Color::toInt(m_color.b), Color::toInt(m_color.a));
+        for (int i = 0; i < m_points.size() - 1; i++)
+        {
+            vec2 p1 = (mx * m_points[i]) + transform.position;
+            vec2 p2 = (mx * m_points[i + 1]) + transform.position;
+
+            renderer.DrawLine(p1.x, p1.y, p2.x, p2.y);
+        }
+    }
 
     // This function is an overloaded version of the Draw function that takes a Transform object as a parameter.
     // It calls the other Draw function, passing the transform's position, rotation, and scale as arguments.
-    void Model::Draw(Renderer& renderer, const Transform& transform)
+    /*void Model::Draw(Renderer& renderer, const Transform& transform)
     {
         Draw(renderer, transform.position, transform.rotation, transform.scale);
-    }
+    }*/
 
     // This function calculates and returns the radius of the model.
     // It finds the maximum length of all points in the model and uses it as the radius.

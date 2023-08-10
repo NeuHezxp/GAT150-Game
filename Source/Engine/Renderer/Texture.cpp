@@ -55,7 +55,7 @@ namespace kiko
 	}
 
 	// Get the size (width and height) of the texture
-	vec2 Texture::GetSize()
+	vec2 Texture::GetSize() const
 	{
 		// ASSERT texture is not null (checks if the texture exists before proceeding)
 		assert(m_texture != nullptr);

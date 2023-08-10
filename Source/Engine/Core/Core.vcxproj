@@ -160,6 +160,8 @@
     <ClInclude Include="FileIO.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="MathUtils.h" />
+    <ClInclude Include="Math\Matrix33.h" />
+    <ClInclude Include="Math\Maxtrix22.h" />
     <ClInclude Include="memory.h" />
     <ClInclude Include="Random.h" />
     <ClInclude Include="Time.h" />
