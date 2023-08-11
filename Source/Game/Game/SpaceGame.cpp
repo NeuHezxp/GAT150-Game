@@ -3,6 +3,7 @@
 #include "Enemy.h"
 #include "Audio/AudioSystem.h"
 #include "Input/InputSystem.h"
+#include "Framework/Components/RenderComponent.h"
 
 #include "Renderer/Renderer.h"
 #include "Framework/Framework.h"
@@ -83,9 +84,9 @@ void SpaceGame::Update(float dt)
 
 		player->m_game = this;
 		//create Components
-		auto component = std::make_unique<kiko::ModelRenderComponent>(); //changed this from model to ModelRenderComponent
-		component->m_model = kiko::g_resources.Get<kiko::Model>("ship.txt");//this to
-		player->AddComponent(std::move(component));
+		auto renderComponent = std::make_unique<kiko::SpriteComponent>(); //changed this from model to ModelRenderComponent
+		renderComponent->m_texture = kiko::g_resources.Get<kiko::Texture>("spaceship.png");//this too
+		player->AddComponent(std::move(renderComponent));
 			//adding physics
 		auto physicsComponent = std::make_unique<kiko::EnginePhysicsComponent>();
 		player->AddComponent(std::move(physicsComponent));

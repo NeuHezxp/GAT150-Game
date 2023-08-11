@@ -51,8 +51,6 @@ namespace kiko
 		result[1][0] = rows[1][0] * mx[0][0] + rows[1][1] * mx[1][0];
 		result[1][1] = rows[1][0] * mx[0][1] + rows[1][1] * mx[1][1];
 
-
-
 		return result;
 	}
 

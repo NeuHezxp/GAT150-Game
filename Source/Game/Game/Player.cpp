@@ -54,41 +54,41 @@ void Player::Update(float dt)
 
 	// *Need to finish*Clamp the speed so it doesn't exceed the maximum speed in either direction
 
-	///Adding special movement
-	if (kiko::g_inputSystem.GetKeyDown(SDL_SCANCODE_LSHIFT))
-	{
-		m_isDashing = true;
-		kiko::vec2 dashDirection = forward;
-		//AddForce(dashDirection *= m_dashSpeed); // Add force in the dash direction
-	}
+	/////Adding special movement
+	//if (kiko::g_inputSystem.GetKeyDown(SDL_SCANCODE_LSHIFT))
+	//{
+	//	m_isDashing = true;
+	//	kiko::vec2 dashDirection = forward;
+	//	//AddForce(dashDirection *= m_dashSpeed); // Add force in the dash direction
+	//}
 
-	if (m_isDashing)
-	{
-		m_dashDuration -= kiko::g_time.GetDeltaTime();
-		if (m_dashDuration <= 0.0f)
-		{
-			m_isDashing = false;
-			m_dashDuration = 0.1f; // Reset the dash duration for the next dash
-			std::cout << "dashing" << std::endl;
-		}
-		//create explosion on death
-		kiko::EmitterData data;
-		data.burst = true;
-		data.burstCount = 100;
-		data.spawnRate = 0;
-		data.angle = 0;
-		data.angleRange = kiko::Pi;
-		data.lifetimeMin = 0.5f;
-		data.lifetimeMax = 1.5f;
-		data.speedMin = 50;
-		data.speedMax = 250;
-		data.damping = 0.5f;
-		data.color = kiko::Color{ 1, 0, 0, 1 };
-		kiko::Transform transform{ m_transform.position, 0, 1 };
-		auto emitter = std::make_unique<kiko::Emitter>(transform, data);
-		emitter->m_lifespan = 1.0f;
-		m_scene->Add(std::move(emitter));
-	}
+	//if (m_isDashing)
+	//{
+	//	m_dashDuration -= kiko::g_time.GetDeltaTime();
+	//	if (m_dashDuration <= 0.0f)
+	//	{
+	//		m_isDashing = false;
+	//		m_dashDuration = 0.1f; // Reset the dash duration for the next dash
+	//		std::cout << "dashing" << std::endl;
+	//	}
+	//	//create explosion on death
+	//	kiko::EmitterData data;
+	//	data.burst = true;
+	//	data.burstCount = 100;
+	//	data.spawnRate = 0;
+	//	data.angle = 0;
+	//	data.angleRange = kiko::Pi;
+	//	data.lifetimeMin = 0.5f;
+	//	data.lifetimeMax = 1.5f;
+	//	data.speedMin = 50;
+	//	data.speedMax = 250;
+	//	data.damping = 0.5f;
+	//	data.color = kiko::Color{ 1, 0, 0, 1 };
+	//	kiko::Transform transform{ m_transform.position, 0, 1 };
+	//	auto emitter = std::make_unique<kiko::Emitter>(transform, data);
+	//	emitter->m_lifespan = 1.0f;
+	//	m_scene->Add(std::move(emitter));
+	//}
 
 	//Actor::Update(dt);
 

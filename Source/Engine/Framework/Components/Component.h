@@ -5,7 +5,8 @@ namespace kiko
 	class Component
 	{
 public:
-	virtual void Update(float dt) = 0;
+		virtual ~Component() = default;
+		virtual void Update(float dt) = 0;
 
 	friend class Actor;
 
