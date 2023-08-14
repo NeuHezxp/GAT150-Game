@@ -97,6 +97,12 @@ namespace kiko
 		v.y = std::stof(ys);
 		return stream;
 	}
+	//stuff for json files
+	inline std::ostream& operator<<(std::ostream& stream, const Vector2& v)
+	{
+		stream << v.x << " " << v.y;
+		return stream;
+	}
 
 	using vec2 = Vector2;
 }

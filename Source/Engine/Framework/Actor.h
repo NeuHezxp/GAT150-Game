@@ -1,19 +1,24 @@
 #pragma once
+#include "Object.h"
 #include "Components/Component.h"
 #include "Renderer/Model.h"
 #include "Core/Core.h"
+#include "Framework/Components/PhysicsComponent.h"
 
 
 namespace kiko
 {
 	class Scene;
 
-	class Actor
+	class Actor : public Object // public to access object
 	{
 	public:
 		Actor() = default;
 		Actor(const Transform& transform) :
 			m_transform{ transform } {}
+		virtual bool Initialize() override;
+		virtual void OnDestroy() override;
+
 		virtual  void Update(float dt); //dt for delta time /// pure virtual aka: abstract
 		virtual  void Draw(Renderer& renderer);
 
@@ -23,6 +28,7 @@ namespace kiko
 
 		float GetRadius() { return 30.0f; }
 		virtual	void OnCollision(Actor* other) {}
+
 
 		
 
@@ -38,8 +44,6 @@ namespace kiko
 	protected:
 		std::vector<std::unique_ptr<Component>> m_components;
 		bool m_destroyed = false; //flag
-
-		
 
 	};
 	template<typename T>

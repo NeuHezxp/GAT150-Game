@@ -91,6 +91,11 @@ void SpaceGame::Update(float dt)
 		auto physicsComponent = std::make_unique<kiko::EnginePhysicsComponent>();
 		player->AddComponent(std::move(physicsComponent));
 
+		auto collisionComponent = std::make_unique<kiko::CircleCollisionComponent>();
+		collisionComponent->m_radius = 30.f;
+		player->AddComponent(std::move(collisionComponent));  
+
+		player->Initialize();
 		m_scene->Add(std::move(player));
 	}
 	m_state = eState::Game;
@@ -114,6 +119,9 @@ void SpaceGame::Update(float dt)
 			auto component = std::make_unique<kiko::SpriteComponent>();
 			component->m_texture = kiko::g_resources.Get<kiko::Texture>("bettership.png", kiko::g_renderer);
 			enemy->AddComponent(std::move(component));
+
+
+			enemy->Initialize();
 			m_scene->Add(std::move(enemy));
 		}
 

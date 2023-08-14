@@ -7,13 +7,38 @@
 
 #include "Laser.h"
 #include "SpaceGame.h"
-#include "Framework/Emitter.h"
+#include "Framework/Framework.h"
 #include "Framework/Game.h"
+#include "Framework/Components/circlecollisioncomponent.h"
+#include "Framework/Components/CollisionComponent.h"
 #include "Framework/Components/PhysicsComponent.h"
 #include "Framework/Components/SpriteComponent.h"
 #include "Framework/Resource/ResourceManager.h"
 #include "Renderer/Renderer.h"
 
+
+
+bool Player::Initialize()
+{
+	///thisssssssss is new
+	Actor::Initialize();
+
+	m_physicsComponent = GetComponent<kiko::PhysicsComponent>();
+	///new
+	auto collisionComponent = GetComponent<kiko::CollisionComponent>();
+	if (collisionComponent)
+	{
+		auto renderComponent = GetComponent<kiko::RenderComponent>();
+		if (renderComponent)
+		{
+			float scale = m_transform.scale;
+			collisionComponent->m_radius = renderComponent->GetRadius() * scale;
+		}
+	}
+
+	return true;
+
+}
 void Player::Update(float dt)
 {
  	Actor::Update(dt);
@@ -101,7 +126,12 @@ void Player::Update(float dt)
 		laser->m_tag = "PlayerLaser";
 		std::unique_ptr<kiko::SpriteComponent> component = std::make_unique<kiko::SpriteComponent>();
 		component->m_texture = kiko::g_resources.Get<kiko::Texture>("rocket.png", kiko::g_renderer);
-		laser->AddComponent(std::move(component));
+		
+
+		auto collisionComponent = std::make_unique<kiko::CircleCollisionComponent>();
+		collisionComponent->m_radius = 30.0f;
+		laser->AddComponent(std::move(collisionComponent));
+		laser->Initialize();
 		m_scene->Add(std::move(laser));
 	}
 
@@ -118,3 +148,6 @@ void Player::OnCollision(Actor* other)
 		dynamic_cast<SpaceGame*>(m_game)->SetState(SpaceGame::eState::PlayerDeadStart);
 	}
 }
+
+
+

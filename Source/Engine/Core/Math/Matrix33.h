@@ -88,7 +88,7 @@ namespace kiko
 		result[0][1] = rows[0][0] * mx[0][1] + rows[0][1] * mx[1][1] + rows[0][2] * mx[2][1];
 		result[0][2] = rows[0][0] * mx[0][0] + rows[0][1] * mx[1][0] + rows[0][2] * mx[2][2];
 
-		// Calculate other elements similarly.
+		// Calculate other elements.
 
 		return result;
 	}

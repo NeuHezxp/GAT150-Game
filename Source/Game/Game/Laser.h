@@ -1,5 +1,6 @@
 #pragma once
 #include "Framework/Actor.h"
+#include "Framework/Framework.h"
 
 namespace kiko
 {
@@ -15,8 +16,10 @@ namespace kiko
 
 		void Update(float dt) override; //dt for delta time
 		void OnCollision(Actor* other) override;
+		bool Initialize() override;
 	protected:
 		bool m_shoulddestroy = false;
 		float m_speed = 0;
+		
 	};
 }

@@ -1,6 +1,8 @@
 #include "Laser.h"
 #include "Core/Core.h"
 #include "Renderer/Renderer.h"
+#include "Framework/framework.h"
+#include "Framework/Components/CollisionComponent.h"
 
 namespace kiko
 
@@ -22,5 +24,21 @@ namespace kiko
 		{
 			m_destroyed = true;
 		}
+	}
+
+	bool Laser::Initialize()
+	{
+		auto collisionComponent = GetComponent<kiko::CollisionComponent>();
+		if (collisionComponent)
+		{
+			auto renderComponent = GetComponent<kiko::RenderComponent>();
+			if (renderComponent)
+			{
+				float scale = m_transform.scale;
+				collisionComponent->m_radius = renderComponent->GetRadius() * scale;
+			}
+		}
+
+		return true;
 	}
 }

@@ -12,6 +12,10 @@
 #include "Audio/AudioSystem.h"
 #include "Framework/Emitter.h"
 
+#include <Framework//Framework.h>
+
+#include "Framework/Components/CollisionComponent.h"
+
 void Enemy::Update(float dt)
 {
 	Actor::Update(dt);
@@ -65,4 +69,20 @@ void Enemy::OnCollision(Actor* other)
 			
 	}
 
+}
+
+bool Enemy::Initialize()
+{
+	auto collisionComponent = GetComponent<kiko::CollisionComponent>();
+	if (collisionComponent)
+	{
+		auto renderComponent = GetComponent<kiko::RenderComponent>();
+		if (renderComponent)
+		{
+			float scale = m_transform.scale;
+			collisionComponent->m_radius = renderComponent->GetRadius() * scale;
+		}
+	}
+
+	return true;
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include "Framework/Actor.h"
+#include "Framework/Components/PhysicsComponent.h"
 
 class Player : public kiko::Actor
 {
@@ -10,8 +11,11 @@ public:
 		m_turnRate{ turnRate }//without it calls the default constructor
 	{}
 
-	void Update(float dt) override; //dt for delta time
 	void OnCollision(Actor* other) override;
+	bool Initialize() override;
+	void Update(float dt) override; //dt for delta time
+private:
+	kiko::PhysicsComponent* m_physicsComponent = nullptr;
 
 protected:
 	bool m_isDashing = false;

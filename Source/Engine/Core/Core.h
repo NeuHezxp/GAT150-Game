@@ -10,3 +10,7 @@
 #include "Core/vector2.h"
 #include "Transform.h"
 #include "MathUtils.h"
+
+//file stuff
+#include "Json.h"
+#include "Memory.h"

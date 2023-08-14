@@ -1,6 +1,5 @@
-#include <vector>
-#include "Framework/Framework.h"
 #include "Core/Core.h"
+#include "Framework/Framework.h"
 #include <Renderer/Renderer.h>
 #include "Input/InputSystem.h"
 #include "Audio/AudioSystem.h"
@@ -9,10 +8,16 @@
 #include "SpaceGame.h"
 #include <cassert>
 
+#include <iostream>
+#include <vector>
+#include <thread>
+#include "Core/Json.h"
+//#include <array>
+//#include <map>
 
 using namespace std;
 
-// Star class represents a point in the game, moving with a velocity to 
+// Star class represents a point in the game, moving with a velocity to
 class Star
 {
 public:
@@ -38,15 +43,45 @@ public:
 	kiko::vec2 m_vel;
 };
 
-
 int main(int argc, char* argv[])
 {
-
 	INFO_LOG("Initializing Game")
 		// Initialize the game engine
-		kiko::MemoryTracker::Initialize();
-	kiko::seedRandom((unsigned int)time(nullptr));
+	kiko::MemoryTracker::Initialize();
+	kiko::seedRandom(static_cast<unsigned int>(time(nullptr)));
 	kiko::setFilePath("assets");
+
+	///son text file to load(new)
+	rapidjson::Document document;
+	kiko::Json::Load("json.txt", document);
+	///json file stuff(new)
+	int i1;
+	kiko::Json::Read(document, "integer1", i1);
+	std::cout << i1 << std::endl;
+	int i2;
+	kiko::Json::Read(document, "integer2", i2);
+	std::cout << i2 << std::endl;
+
+	/// Read strings(new)
+	std::string str;
+	kiko::Json::Read(document, "string", str);
+	std::cout << "string: " << str << std::endl;
+
+	/// Read boolean
+	bool b;
+	kiko::Json::Read(document, "boolean", b);
+	std::cout << "boolean: " << (b ? "true" : "false") << std::endl;
+
+	/// Read float
+	float f;
+	kiko::Json::Read(document, "float", f);
+	std::cout << "float: " << f << std::endl;
+
+	/// Read vector2
+	kiko::vec2 v2;
+	kiko::Json::Read(document, "vector2", v2);
+	std::cout<< v2 << std::endl;
+
 
 	// Initialize the renderer
 	kiko::g_renderer.Initialize();
@@ -61,7 +96,6 @@ int main(int argc, char* argv[])
 	auto game = make_unique<SpaceGame>();
 	game->Initialize();
 
-
 	// Create a vector to store stars
 	std::vector<Star> stars;
 	for (int i = 0; i < 1000; i++)
@@ -72,11 +106,10 @@ int main(int argc, char* argv[])
 		stars.push_back(Star(pos, vel));
 	}
 	INFO_LOG("Updating engine Components in main")
-	// Main Loop that runs the game
-	bool quit = false;
+		// Main Loop that runs the game
+		bool quit = false;
 	while (!quit)
 	{
-		
 		// Update engine components
 		kiko::g_time.Tick();
 		kiko::g_inputSystem.Update();
@@ -107,13 +140,12 @@ int main(int argc, char* argv[])
 
 		// Draw the stars
 		kiko::g_renderer.setColor(255, 255, 255, 255);
-		
-		
+
 		// Draw the game elements and particles
 		game->Draw(kiko::g_renderer);
 		kiko::g_particleSystem.Draw(kiko::g_renderer);
 		// Create a vector to store stars
-		
+
 		// Update and draw the stars
 		for (auto& star : stars)
 		{
@@ -122,10 +154,9 @@ int main(int argc, char* argv[])
 			if (star.m_pos.x >= kiko::g_renderer.getWidth()) star.m_pos.x = 0;
 			if (star.m_pos.y >= kiko::g_renderer.getHeight()) star.m_pos.y = 0;
 
-			kiko::g_renderer.setColor(kiko::random(256), kiko::random(256), kiko::random(256), 255);  
+			kiko::g_renderer.setColor(kiko::random(256), kiko::random(256), kiko::random(256), 255);
 			kiko::g_renderer.DrawPoint(star.m_pos.x, star.m_pos.y);
 		}
-		
 
 		// End the frame and present it
 		kiko::g_renderer.EndFrame();
