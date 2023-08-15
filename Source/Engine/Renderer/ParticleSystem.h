@@ -24,5 +24,3 @@ namespace kiko
 
 	extern ParticleSystem g_particleSystem;
 }
-
-

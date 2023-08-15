@@ -14,6 +14,6 @@ namespace kiko
 		static bool Read(const rapidjson::Value& value, const std::string& name, bool& data, bool required = false);
 		static bool Read(const rapidjson::Value& value, const std::string& name, std::string& data, bool required = false);
 
-		static bool Read(const rapidjson::Value& value, const std::string& name, vec2& data, bool required= false);
+		static bool Read(const rapidjson::Value& value, const std::string& name, vec2& data, bool required = false);
 	};
 }

@@ -14,6 +14,4 @@ namespace kiko
 	public:
 		res_t<Model> m_model;
 	};
-
-	
 }

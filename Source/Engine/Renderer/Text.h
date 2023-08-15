@@ -3,7 +3,7 @@
 #include "Core/Color.h"
 #include <string>
 #include <memory>
-	struct SDL_Texture;
+struct SDL_Texture;
 namespace kiko
 {
 	class Renderer;

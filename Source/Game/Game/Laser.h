@@ -20,6 +20,5 @@ namespace kiko
 	protected:
 		bool m_shoulddestroy = false;
 		float m_speed = 0;
-		
 	};
 }

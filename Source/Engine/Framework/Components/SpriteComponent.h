@@ -13,5 +13,4 @@ namespace kiko
 	public:
 		res_t<Texture> m_texture; //member variable for texture
 	};
-
 }

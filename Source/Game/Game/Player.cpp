@@ -16,8 +16,6 @@
 #include "Framework/Resource/ResourceManager.h"
 #include "Renderer/Renderer.h"
 
-
-
 bool Player::Initialize()
 {
 	///thisssssssss is new
@@ -37,11 +35,10 @@ bool Player::Initialize()
 	}
 
 	return true;
-
 }
 void Player::Update(float dt)
 {
- 	Actor::Update(dt);
+	Actor::Update(dt);
 
 	//movement
 	float rotate = 0;
@@ -56,7 +53,6 @@ void Player::Update(float dt)
 	//AddForce(forward * m_speed * thrust);
 	auto physicsComponent = GetComponent<kiko::PhysicsComponent>();
 	physicsComponent->ApplyForce(forward * m_speed * thrust);
-
 
 	//m_transform.position += forward * m_speed * thrust * kiko::g_time.GetDeltaTime();
 
@@ -125,8 +121,7 @@ void Player::Update(float dt)
 		std::unique_ptr<kiko::Laser> laser = std::make_unique<kiko::Laser>(400.0f, transform);//m_model is the weapons model !!change this. //m_model change to transform
 		laser->m_tag = "PlayerLaser";
 		std::unique_ptr<kiko::SpriteComponent> component = std::make_unique<kiko::SpriteComponent>();
-		component->m_texture = kiko::g_resources.Get<kiko::Texture>("rocket.png", kiko::g_renderer);
-		
+		component->m_texture = GET_RESOURCE(kiko::Texture,"rocket.png", kiko::g_renderer);
 
 		auto collisionComponent = std::make_unique<kiko::CircleCollisionComponent>();
 		collisionComponent->m_radius = 30.0f;
@@ -148,6 +143,3 @@ void Player::OnCollision(Actor* other)
 		dynamic_cast<SpaceGame*>(m_game)->SetState(SpaceGame::eState::PlayerDeadStart);
 	}
 }
-
-
-

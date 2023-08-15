@@ -20,13 +20,12 @@ void Enemy::Update(float dt)
 {
 	Actor::Update(dt);
 
-	kiko::vec2 forward = kiko::vec2{0, -1}.Rotate(m_transform.rotation);
+	kiko::vec2 forward = kiko::vec2{ 0, -1 }.Rotate(m_transform.rotation);
 	Player* player = m_scene->GetActor<Player>();
 	if (player)
 	{
 		kiko::Vector2 direction = player->m_transform.position - m_transform.position;
 		m_transform.rotation = direction.Angle() + kiko::HalfPi;
-
 
 		float angle = kiko::vec2::SignedAngle(forward, direction.Normalized());
 		if (std::fabs(angle) < kiko::DegreesToRadians(30.0f))
@@ -60,15 +59,10 @@ void Enemy::OnCollision(Actor* other)
 
 	if (other->m_tag == "PlayerLaser")
 	{
-
-			
-			m_game->AddPoints(100);
-			m_destroyed = true;
-			kiko::g_audioSystem.PlayOneShot("explosion");
-
-			
+		m_game->AddPoints(100);
+		m_destroyed = true;
+		kiko::g_audioSystem.PlayOneShot("explosion");
 	}
-
 }
 
 bool Enemy::Initialize()

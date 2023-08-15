@@ -1,13 +1,11 @@
 #include "ParticleSystem.h"
 #include "Core/Core.h"
 
-
-
 void kiko::ParticleSystem::Update(float dt)
 {
 	for (auto& particle : m_particles)
 	{
-		if (particle.m_isActive) particle.Update(dt); 
+		if (particle.m_isActive) particle.Update(dt);
 	}
 }
 void kiko::ParticleSystem::Draw(kiko::Renderer& renderer)

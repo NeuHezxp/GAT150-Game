@@ -36,7 +36,7 @@ namespace kiko
 		return (value < min) ? min : (value > max) ? max : value;
 	}
 
-	template<typename T>//linear interpoation ///interpolates between to values moves along 
+	template<typename T>//linear interpoation ///interpolates between to values moves along
 	constexpr T Lerp(const T& a, const T& b, float t) ///between 2 points and moves there
 	{
 		return (a * (1.0f - t)) + (b * t);

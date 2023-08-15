@@ -47,14 +47,14 @@ int main(int argc, char* argv[])
 {
 	INFO_LOG("Initializing Game")
 		// Initialize the game engine
-	kiko::MemoryTracker::Initialize();
+		kiko::MemoryTracker::Initialize();
 	kiko::seedRandom(static_cast<unsigned int>(time(nullptr)));
 	kiko::setFilePath("assets");
 
-	///son text file to load(new)
+	///son text file to load
 	rapidjson::Document document;
 	kiko::Json::Load("json.txt", document);
-	///json file stuff(new)
+	///json file stuff
 	int i1;
 	kiko::Json::Read(document, "integer1", i1);
 	std::cout << i1 << std::endl;
@@ -62,7 +62,7 @@ int main(int argc, char* argv[])
 	kiko::Json::Read(document, "integer2", i2);
 	std::cout << i2 << std::endl;
 
-	/// Read strings(new)
+	/// Read strings
 	std::string str;
 	kiko::Json::Read(document, "string", str);
 	std::cout << "string: " << str << std::endl;
@@ -80,8 +80,7 @@ int main(int argc, char* argv[])
 	/// Read vector2
 	kiko::vec2 v2;
 	kiko::Json::Read(document, "vector2", v2);
-	std::cout<< v2 << std::endl;
-
+	std::cout << v2 << std::endl;
 
 	// Initialize the renderer
 	kiko::g_renderer.Initialize();

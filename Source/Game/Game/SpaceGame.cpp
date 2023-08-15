@@ -2,13 +2,12 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Audio/AudioSystem.h"
+#include "Framework/Factory.h"
 #include "Input/InputSystem.h"
 #include "Framework/Components/RenderComponent.h"
 
 #include "Renderer/Renderer.h"
 #include "Framework/Framework.h"
-
-
 
 // This function is responsible for initializing the game state.
 // It creates font and text objects for displaying the score, title, game over text, timer, and winner text.
@@ -17,20 +16,20 @@
 bool SpaceGame::Initialize()
 {
 	// create font / text objects
-	m_font = kiko::g_resources.Get<kiko::Font>("arcadeclassic.ttf",24);
-	m_scoreText = std::make_unique<kiko::Text>(kiko::g_resources.Get<kiko::Font>("arcadeclassic.ttf", 24));
+	m_font = GET_RESOURCE(kiko::Font,"arcadeclassic.ttf", 24);
+	m_scoreText = std::make_unique<kiko::Text>(GET_RESOURCE(kiko::Font, "arcadeclassic.ttf", 24));
 	m_scoreText->Create(kiko::g_renderer, "Score 0000", kiko::Color{ 1, 1, 1, 1 });
 
-	m_titleText = std::make_unique<kiko::Text>(kiko::g_resources.Get<kiko::Font>("arcadeclassic.ttf", 24));
+	m_titleText = std::make_unique<kiko::Text>(m_font);
 	m_titleText->Create(kiko::g_renderer, "asteroid", kiko::Color{ 1, 1, 1, 1 });
 
-	m_gameovertext = std::make_unique<kiko::Text>(kiko::g_resources.Get<kiko::Font>("arcadeclassic.ttf", 24));
+	m_gameovertext = std::make_unique<kiko::Text>(m_font);
 	m_gameovertext->Create(kiko::g_renderer, "GameOVER", kiko::Color{ 1, 1, 1, 1 });
 
-	m_timerText = std::make_unique<kiko::Text>(kiko::g_resources.Get<kiko::Font>("arcadeclassic.ttf", 24));
+	m_timerText = std::make_unique<kiko::Text>(m_font);
 	m_timerText->Create(kiko::g_renderer, "Timer", kiko::Color{ 1, 1, 1, 1 });
 
-	m_winnerText = std::make_unique<kiko::Text>(kiko::g_resources.Get<kiko::Font>("arcadeclassic.ttf", 24));
+	m_winnerText = std::make_unique<kiko::Text>(m_font);
 	m_winnerText->Create(kiko::g_renderer, "You Win", kiko::Color{ 1, 1, 1, 1 });
 
 	//load background music
@@ -84,16 +83,16 @@ void SpaceGame::Update(float dt)
 
 		player->m_game = this;
 		//create Components
-		auto renderComponent = std::make_unique<kiko::SpriteComponent>(); //changed this from model to ModelRenderComponent
-		renderComponent->m_texture = kiko::g_resources.Get<kiko::Texture>("spaceship.png");//this too
+		auto renderComponent = kiko::Factory::Instance().Create<kiko::SpriteComponent>("SpriteComponent"); //changed this from model to ModelRenderComponent
+		renderComponent->m_texture = GET_RESOURCE(kiko::Texture,"spaceship.png");//this too
 		player->AddComponent(std::move(renderComponent));
-			//adding physics
+		//adding physics
 		auto physicsComponent = std::make_unique<kiko::EnginePhysicsComponent>();
 		player->AddComponent(std::move(physicsComponent));
 
 		auto collisionComponent = std::make_unique<kiko::CircleCollisionComponent>();
 		collisionComponent->m_radius = 30.f;
-		player->AddComponent(std::move(collisionComponent));  
+		player->AddComponent(std::move(collisionComponent));
 
 		player->Initialize();
 		m_scene->Add(std::move(player));
@@ -112,14 +111,13 @@ void SpaceGame::Update(float dt)
 		if (m_spawnTimer >= m_spawnTime)
 		{
 			m_spawnTimer = 0;
-			auto enemy = std::make_unique<Enemy>(kiko::randomf(75.0f, 15.0f),kiko::Pi, kiko::Transform{ {kiko::random(kiko::g_renderer.getWidth()), kiko::random(kiko::g_renderer.getHeight())}, kiko::randomf(kiko::TwoPi), 4 });
+			auto enemy = std::make_unique<Enemy>(kiko::randomf(75.0f, 15.0f), kiko::Pi, kiko::Transform{ {kiko::random(kiko::g_renderer.getWidth()), kiko::random(kiko::g_renderer.getHeight())}, kiko::randomf(kiko::TwoPi), 4 });
 			enemy->m_tag = "Enemy";
 			enemy->m_game = this;
 			//create components
 			auto component = std::make_unique<kiko::SpriteComponent>();
-			component->m_texture = kiko::g_resources.Get<kiko::Texture>("bettership.png", kiko::g_renderer);
+			component->m_texture = GET_RESOURCE(kiko::Texture,"bettership.png", kiko::g_renderer);
 			enemy->AddComponent(std::move(component));
-
 
 			enemy->Initialize();
 			m_scene->Add(std::move(enemy));

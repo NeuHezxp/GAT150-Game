@@ -24,9 +24,8 @@ namespace kiko
 
 		friend class Renderer; // Declaring the Renderer class as a friend, allowing it to access private members of Texture.
 
-
 	protected:
 		SDL_Texture* m_texture = nullptr; // Pointer to the SDL_Texture, initialized to nullptr.
 		// Inherited via Resource
-	};	
+	};
 }

@@ -13,8 +13,8 @@ public:
 		m_fireTimer = m_firerate;
 	}
 
-	void Update(float dt) override; //dt 
-	
+	void Update(float dt) override; //dt
+
 	void OnCollision(Actor* other) override;
 
 	bool Initialize() override;
@@ -25,7 +25,6 @@ protected:
 
 	float m_firerate = 0;
 	float m_fireTimer = 0;
-
 
 	float m_health = 25;
 };

@@ -24,8 +24,7 @@ namespace kiko
 
 		va_end(args);
 
-
-		return Load(filename,renderer );
+		return Load(filename, renderer);
 	}
 
 	// Create a texture from an image file
@@ -67,5 +66,4 @@ namespace kiko
 		// Return the size as a vec2 (casting to float to avoid data loss)
 		return vec2{ static_cast<float>(point.x), static_cast<float>(point.y) };
 	}
-	
 }

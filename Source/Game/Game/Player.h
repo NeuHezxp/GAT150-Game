@@ -6,7 +6,7 @@ class Player : public kiko::Actor
 {
 public:
 	Player(float speed, float turnRate, const kiko::Transform& transform) :
-		Actor{ transform},
+		Actor{ transform },
 		m_speed{ speed },
 		m_turnRate{ turnRate }//without it calls the default constructor
 	{}

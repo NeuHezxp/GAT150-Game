@@ -24,6 +24,5 @@ namespace kiko
 
 		int m_score = 0;
 		int m_lives = 0;
-
 	};
 }

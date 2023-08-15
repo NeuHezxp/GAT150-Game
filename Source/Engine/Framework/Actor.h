@@ -5,7 +5,6 @@
 #include "Core/Core.h"
 #include "Framework/Components/PhysicsComponent.h"
 
-
 namespace kiko
 {
 	class Scene;
@@ -29,9 +28,6 @@ namespace kiko
 		float GetRadius() { return 30.0f; }
 		virtual	void OnCollision(Actor* other) {}
 
-
-		
-
 		class Scene* m_scene = nullptr;
 		class Game* m_game = nullptr;
 
@@ -44,7 +40,6 @@ namespace kiko
 	protected:
 		std::vector<std::unique_ptr<Component>> m_components;
 		bool m_destroyed = false; //flag
-
 	};
 	template<typename T>
 	inline T* Actor::GetComponent()

@@ -1,6 +1,6 @@
 #include "Json.h"
 //#include "C:\Homework\Quarter 4\C++ code\GAT150-Game\Source\ThirdParty\rapidjson\include\rapidjson/istreamwrapper.h"
-#include "..\..\ThirdParty/rapidjson/include/rapidjson/istreamwrapper.h"
+#include "../../ThirdParty/rapidjson/include/rapidjson/istreamwrapper.h"
 
 #include <sstream>
 #include "FileIO.h"

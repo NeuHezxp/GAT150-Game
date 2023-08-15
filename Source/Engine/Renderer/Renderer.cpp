@@ -7,7 +7,6 @@
 #include "SDL2-2.28.0/include/SDL_ttf.h"
 #include "SDL2-2.28.0/include/SDL_image.h"
 
-
 namespace kiko
 {
 	// Global instance of Renderer (singleton pattern)
@@ -110,8 +109,8 @@ namespace kiko
 
 		// Create a destination rectangle for rendering the texture
 		SDL_Rect dest;
-		dest.x = static_cast<int>(x) -size.x * .5f; //shifting origin
-		dest.y = static_cast<int>(y) -size.y * .5f; //shifting origin
+		dest.x = static_cast<int>(x) - size.x * .5f; //shifting origin
+		dest.y = static_cast<int>(y) - size.y * .5f; //shifting origin
 		dest.w = static_cast<int>(size.x);
 		dest.h = static_cast<int>(size.y);
 
@@ -141,6 +140,4 @@ namespace kiko
 	{
 		SDL_RenderDrawPoint(m_renderer, x, y);
 	}
-
-
 }
