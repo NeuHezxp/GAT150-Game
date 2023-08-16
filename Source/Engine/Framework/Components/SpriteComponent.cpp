@@ -5,6 +5,9 @@
 
 namespace kiko
 {
+	CLASS_DEFINITION(SpriteComponent)
+
+
 	void SpriteComponent::Update(float dt)
 	{
 	}

@@ -1,5 +1,22 @@
 #pragma once
 #include <string>
+#include "Core/Json.h"
+#include "Factory.h"
+
+#define CLASS_DECLARATION(classname) \
+	virtual const char* GetClassName() {return #classname;}\
+	bool Read(const rapidjson::Value& value);\
+	class Register \
+		{ \
+		public: \
+			Register() \
+			{ \
+				Factory::Instance().Register<classname>(#classname);\
+			} \
+		};
+
+#define CLASS_DEFINITION(classname) \
+	classname::Register register_class;
 
 namespace kiko
 {
@@ -9,6 +26,8 @@ namespace kiko
 		Object() = default;
 		Object(const std::string& name) : m_name{ name } {}
 		virtual ~Object() { OnDestroy(); }
+
+		CLASS_DECLARATION(Object)
 
 		virtual bool Initialize() { return true; }
 		virtual void OnDestroy() {}

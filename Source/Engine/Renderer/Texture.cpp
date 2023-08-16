@@ -40,7 +40,7 @@ namespace kiko
 		}
 
 		// Create an SDL texture from the loaded surface
-		m_texture = SDL_CreateTextureFromSurface(renderer.getRenderer(), surface);
+		m_texture = SDL_CreateTextureFromSurface(renderer.getRenderer(), surface);//fix this somewhere
 		SDL_FreeSurface(surface);
 
 		if (!m_texture)

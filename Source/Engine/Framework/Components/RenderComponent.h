@@ -3,7 +3,7 @@
 
 namespace kiko
 {
-	class RenderComponent : public kiko::Component
+	class RenderComponent : public Component
 	{
 	public:
 		virtual void Draw(class Renderer& renderer) = 0;

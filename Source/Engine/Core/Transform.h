@@ -21,7 +21,8 @@ namespace kiko
 			rotation{ rotation },
 			scale{ scale }
 		{}
-
+		//default transform
+		Transform() = default;
 		// Function to calculate and retrieve the transformation matrix.
 		mat3 GetMatrix() const
 		{

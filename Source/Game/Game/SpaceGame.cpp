@@ -83,14 +83,14 @@ void SpaceGame::Update(float dt)
 
 		player->m_game = this;
 		//create Components
-		auto renderComponent = kiko::Factory::Instance().Create<kiko::SpriteComponent>("SpriteComponent"); //changed this from model to ModelRenderComponent
+		auto renderComponent = CREATE_CLASS(SpriteComponent); //changed this from model to ModelRenderComponent
 		renderComponent->m_texture = GET_RESOURCE(kiko::Texture,"spaceship.png");//this too
 		player->AddComponent(std::move(renderComponent));
 		//adding physics
-		auto physicsComponent = std::make_unique<kiko::EnginePhysicsComponent>();
+		auto physicsComponent = CREATE_CLASS(EnginePhysicsComponent);
 		player->AddComponent(std::move(physicsComponent));
 
-		auto collisionComponent = std::make_unique<kiko::CircleCollisionComponent>();
+		auto collisionComponent = CREATE_CLASS(CircleCollisionComponent);
 		collisionComponent->m_radius = 30.f;
 		player->AddComponent(std::move(collisionComponent));
 

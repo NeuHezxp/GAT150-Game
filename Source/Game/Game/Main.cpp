@@ -12,6 +12,7 @@
 #include <vector>
 #include <thread>
 #include "Core/Json.h"
+#include "Framework/Factory.h"
 //#include <array>
 //#include <map>
 
@@ -45,6 +46,9 @@ public:
 
 int main(int argc, char* argv[])
 {
+	
+
+
 	INFO_LOG("Initializing Game")
 		// Initialize the game engine
 		kiko::MemoryTracker::Initialize();

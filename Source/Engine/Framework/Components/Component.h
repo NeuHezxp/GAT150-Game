@@ -3,6 +3,7 @@
 
 namespace kiko
 {
+
 	class Component : public Object
 	{
 	public:

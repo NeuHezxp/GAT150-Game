@@ -12,6 +12,8 @@ namespace kiko
 	class Actor : public Object // public to access object
 	{
 	public:
+		CLASS_DECLARATION(Actor)
+
 		Actor() = default;
 		Actor(const Transform& transform) :
 			m_transform{ transform } {}
