@@ -15,9 +15,9 @@ namespace kiko
 			lifespan = 2.0f;
 		}*/
 
+		bool Initialize() override;
 		void Update(float dt) override; //dt for delta time
 		void OnCollision(Actor* other);
-		bool Initialize() override;
 		void Read(const json_t& value);
 	protected:
 		float speed = 0;

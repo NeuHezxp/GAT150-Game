@@ -67,7 +67,7 @@ namespace kiko
 
 		if (HAS_DATA(value, components) && GET_DATA(value, components).IsArray())
 		{
-			for (auto componentValue : GET_DATA(value, components).GetArray())
+			for (auto& componentValue : GET_DATA(value, components).GetArray())
 			{
 				std::string type;
 				READ_DATA(componentValue,type);

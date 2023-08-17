@@ -3,11 +3,12 @@
 #include "Vector2.h"
 #include <string>
 
+#define READ_DATA(value, data) kiko::Json::Read(value, #data, data)
+#define READ_DATA_REQUIRED(value, data) kiko::Json::Read(value, #data, data, true)
+#define HAS_DATA(value, data) value.HasMember(#data)
+#define GET_DATA(value, data) value[#data]
 namespace kiko
 {
-#define READ_DATA(value, data) kiko::Json::Read(value, #data, data)
-#define READ_DATA_REQUIRED(value, data) kiko::Json::Read(value, #data, data, true);
-#define HAS_DATA(value, date) value.HasMember(#data)
 	class Json
 	{
 	public:

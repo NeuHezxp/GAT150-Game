@@ -10,7 +10,7 @@ namespace kiko
 	{
 	public:
 		CLASS_DECLARATION(SpriteComponent);
-		bool Initialize(); override;
+		bool Initialize() override;
 		void Update(float dt);
 		void Draw(class Renderer& renderer);
 		virtual float GetRadius() { return m_texture->GetSize().length() * .5f; }

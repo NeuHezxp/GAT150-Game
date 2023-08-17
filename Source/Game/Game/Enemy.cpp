@@ -38,19 +38,19 @@ void Enemy::Update(float dt)
 	transform.position.x = kiko::Wrap(transform.position.x, static_cast<float>(kiko::g_renderer.getWidth()));
 	transform.position.y = kiko::Wrap(transform.position.y, static_cast<float>(kiko::g_renderer.getHeight()));
 
-	//decrement the time and reset the timer // use fire timer  => 0 reset the fire timer
-	if (m_fireTimer <= 0)
-	{
-		m_fireTimer = m_firerate;
-		//create weapon
-		kiko::Transform transform{transform.position, transform.rotation, .5f};
-		std::unique_ptr<kiko::WeaponComponent> laser = std::make_unique<kiko::WeaponComponent>(400.0f, transform);
-		m_scene->Add(std::move(laser));
-	}
-	else
-	{
-		m_fireTimer -= dt; // subtracting dt from m_fireTimer
-	}
+	////decrement the time and reset the timer // use fire timer  => 0 reset the fire timer
+	//if (m_fireTimer <= 0)
+	//{
+	//	m_fireTimer = m_firerate;
+	//	//create weapon
+	//	kiko::Transform transform{transform.position, transform.rotation, .5f};
+	//	std::unique_ptr<kiko::WeaponComponent> laser = std::make_unique<kiko::WeaponComponent>(400.0f, transform);
+	//	m_scene->Add(std::move(laser));
+	//}
+	//else
+	//{
+	//	m_fireTimer -= dt; // subtracting dt from m_fireTimer
+	//}
 }
 
 void Enemy::OnCollision(Actor* other)

@@ -114,24 +114,24 @@ void Player::Update(float dt)
 	//Actor::Update(dt);
 
 	//fire weapon
-	if (kiko::g_inputSystem.GetKeyDown(SDL_SCANCODE_SPACE) && !kiko::g_inputSystem.GetPreviousKeyDown(SDL_SCANCODE_SPACE))
-	{
-		//create weapon
-		kiko::Transform transform{transform.position, transform.rotation, 1}; //include degrees to radians 10.0f + 1
-		std::unique_ptr<kiko::WeaponComponent> laser = std::make_unique<kiko::WeaponComponent>(400.0f, transform);//m_model is the weapons model !!change this. //m_model change to transform
-		laser->tag = "PlayerLaser";
-		std::unique_ptr<kiko::SpriteComponent> component = std::make_unique<kiko::SpriteComponent>();
-		component->m_texture = GET_RESOURCE(kiko::Texture,"rocket.png", kiko::g_renderer);
+	//if (kiko::g_inputSystem.GetKeyDown(SDL_SCANCODE_SPACE) && !kiko::g_inputSystem.GetPreviousKeyDown(SDL_SCANCODE_SPACE))
+	//{
+	//	//create weapon
+	//	kiko::Transform transform{transform.position, transform.rotation, 1}; //include degrees to radians 10.0f + 1
+	//	std::unique_ptr<kiko::WeaponComponent> laser = std::make_unique<kiko::WeaponComponent>(400.0f, transform);//m_model is the weapons model !!change this. //m_model change to transform
+	//	laser->tag = "PlayerLaser";
+	//	std::unique_ptr<kiko::SpriteComponent> component = std::make_unique<kiko::SpriteComponent>();
+	//	component->m_texture = GET_RESOURCE(kiko::Texture,"rocket.png", kiko::g_renderer);
 
-		auto collisionComponent = std::make_unique<kiko::CircleCollisionComponent>();
-		collisionComponent->m_radius = 30.0f;
-		laser->AddComponent(std::move(collisionComponent));
-		laser->Initialize();
-		m_scene->Add(std::move(laser));
-	}
+	//	auto collisionComponent = std::make_unique<kiko::CircleCollisionComponent>();
+	//	collisionComponent->m_radius = 30.0f;
+	//	laser->AddComponent(std::move(collisionComponent));
+	//	laser->Initialize();
+	//	m_scene->Add(std::move(laser));
+	//}
 
-	if (kiko::g_inputSystem.GetKeyDown(SDL_SCANCODE_T)) kiko::g_time.SetTimeScale(.1f);
-	else kiko::g_time.SetTimeScale(1);
+	//if (kiko::g_inputSystem.GetKeyDown(SDL_SCANCODE_T)) kiko::g_time.SetTimeScale(.1f);
+	//else kiko::g_time.SetTimeScale(1);
 }
 
 void Player::OnCollision(Actor* other)

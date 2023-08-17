@@ -32,7 +32,7 @@ namespace kiko
 		if (collisionComponent)
 		{
 			auto renderComponent = m_owner->GetComponent<RenderComponent>();
-			if (renderComponent)
+			if ( renderComponent)
 			{
 				float scale = m_owner->transform.scale;
 				collisionComponent->m_radius = renderComponent->GetRadius() * scale;
