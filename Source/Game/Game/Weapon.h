@@ -1,14 +1,12 @@
 #pragma once
 #include "Framework/Actor.h"
-#include "Framework/Framework.h"
-#include "Framework/Components/Component.h"
 
 namespace kiko
 {
-	class WeaponComponent : public Component
+	class Weapon : public Actor
 	{
 	public:
-		/*WeaponComponent(float speed, const kiko::Transform& transform) :
+		/*Weapon(float speed, const kiko::Transform& transform) :
 			Actor{ transform },
 			speed{ speed }
 		{

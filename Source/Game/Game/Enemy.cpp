@@ -1,12 +1,11 @@
 #include "Enemy.h"
 
-#include "WeaponComponent.h"
 #include "Player.h"
 #include "Framework/Scene.h"
 #include "Input/InputSystem.h"
 #include "Renderer/Renderer.h"
 #include "Enemy.h"
-#include "WeaponComponent.h"
+#include "Weapon.h"
 #include "Framework/Game.h"
 #include "SpaceGame.h"
 #include "Audio/AudioSystem.h"

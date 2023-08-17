@@ -1,11 +1,10 @@
 #include "Player.h"
 
-#include "WeaponComponent.h"
+#include "Weapon.h"
 #include "Framework/Actor.h"
 #include "Framework/Scene.h"
 #include "Input/InputSystem.h"
 
-#include "WeaponComponent.h"
 #include "SpaceGame.h"
 #include "Framework/Framework.h"
 #include "Framework/Game.h"
