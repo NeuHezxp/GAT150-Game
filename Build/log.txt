@@ -1,2 +1,7 @@
+INFO: Factory.h(52) Class Registered ModelRenderComponent
+INFO: Factory.h(52) Class Registered SpriteComponent
+INFO: Factory.h(52) Class Registered EnginePhysicsComponent
+INFO: Factory.h(52) Class Registered CircleCollisionComponent
+INFO: Factory.h(52) Class Registered Actor
 INFO: Main.cpp(52) Initializing Game
 INFO: Main.cpp(111) Updating engine Components in main

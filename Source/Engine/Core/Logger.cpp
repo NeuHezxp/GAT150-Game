@@ -4,9 +4,6 @@
 
 namespace kiko
 {
-	// Global instance of the Logger class with log level set to Info,
-	// output stream set to std::cout (console), and optional file name "log.txt" for file logging.
-	Logger g_logger(LogLevel::Info, &std::cout, "log.txt");
 
 	// Implementation of the Log function of the Logger class.
 	// This function logs the message with the specified log level, file name, and line number.

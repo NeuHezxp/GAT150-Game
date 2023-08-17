@@ -1,4 +1,5 @@
 #pragma once
+#include "Json.h"
 #include "vector2.h"
 #include "Math/Matrix33.h"   // Include the header for the Matrix33 class.
 #include "Math/Maxtrix22.h"   // Include the header for the Matrix22 class.
@@ -35,5 +36,8 @@ namespace kiko
 
 			return mx;
 		}
+
+		void Read(const json_t& value);
 	};
+
 }

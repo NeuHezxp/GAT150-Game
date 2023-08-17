@@ -3,17 +3,20 @@
 #include <string>
 #include <cassert>
 #include <fstream>
+#include <iostream>
+
+#include "../Framework/Singleton.h"
 
 // Macros / debug mode
 #ifdef _DEBUG
 // INFO_LOG macro logs information messages
-#define INFO_LOG(message) { if (kiko::g_logger.Log(kiko::LogLevel::Info, __FILE__, __LINE__)) { kiko::g_logger << message << "\n"; } }
+#define INFO_LOG(message) { if (kiko::Logger::Instance().Log(kiko::LogLevel::Info, __FILE__, __LINE__)) { kiko::Logger::Instance() << message << "\n"; } }
 // WARNING_LOG macro logs warning messages
-#define WARNING_LOG(message) { if (kiko::g_logger.Log(kiko::LogLevel::Warning, __FILE__, __LINE__)) { kiko::g_logger << message << "\n"; } }
+#define WARNING_LOG(message) { if (kiko::Logger::Instance().Log(kiko::LogLevel::Warning, __FILE__, __LINE__)) { kiko::Logger::Instance() << message << "\n"; } }
 // ERROR_LOG macro logs error messages
-#define ERROR_LOG(message) { if (kiko::g_logger.Log(kiko::LogLevel::Error, __FILE__, __LINE__)) { kiko::g_logger << message << "\n"; } }
+#define ERROR_LOG(message) { if (kiko::Logger::Instance().Log(kiko::LogLevel::Error, __FILE__, __LINE__)) { kiko::Logger::Instance() << message << "\n"; } }
 // ASSERT_LOG macro logs assert messages and triggers an assertion if the condition is false
-#define ASSERT_LOG(condition, message) { if (!condition && kiko::g_logger.Log(kiko::LogLevel::Assert, __FILE__, __LINE__)) { kiko::g_logger << message << "\n"; } assert(condition); }
+#define ASSERT_LOG(condition, message) { if (!condition && kiko::Logger::Instance().Log(kiko::LogLevel::Assert, __FILE__, __LINE__)) { kiko::Logger::Instance() << message << "\n"; } assert(condition); }
 #else
 // If not in debug mode, define these macros as empty to disable logging
 #define INFO_LOG(message) {}
@@ -34,11 +37,12 @@ namespace kiko
 	};
 
 	// Logger class for handling logging messages
-	class Logger
+	class Logger : public Singleton<Logger> // makes class singleton
 	{
 	public:
+
 		// Constructor with log level, output stream, and an optional filename for file logging
-		Logger(LogLevel logLevel, std::ostream* ostream, const std::string& filename = "") :
+		Logger(LogLevel logLevel = LogLevel::Info, std::ostream* ostream = &std::cout, const std::string& filename = "log.txt") :
 			m_logLevel{ logLevel },
 			m_ostream{ ostream }
 		{
@@ -59,7 +63,6 @@ namespace kiko
 		std::ofstream m_fstream;   // File stream for file logging (optional)
 	};
 
-	extern Logger g_logger; // Global instance of the Logger class for logging messages
 
 	// Operator overload for streaming messages to the logger
 	template<typename T>

@@ -25,6 +25,7 @@
     <ClCompile Include="Components\SpriteComponent.cpp" />
     <ClCompile Include="Emitter.cpp" />
     <ClCompile Include="ModelRenderComponent.cpp" />
+    <ClCompile Include="Object.cpp" />
     <ClCompile Include="Scene.cpp" />
   </ItemGroup>
   <ItemGroup>

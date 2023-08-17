@@ -41,10 +41,10 @@ namespace kiko
 			ParticleData data;
 			data.lifetime = kiko::randomf(m_data.lifetimeMin, m_data.lifetimeMax);
 			data.lifetimer = 0.0f;
-			data.position = m_transform.position;
+			data.position = transform.position;
 			data.prevPosition = data.position;
 			data.color = m_data.color;
-			float angle = m_transform.rotation + m_data.angle + kiko::randomf(-
+			float angle = transform.rotation + m_data.angle + kiko::randomf(-
 				m_data.angleRange, m_data.angleRange);
 			kiko::vec2 direction = kiko::vec2{ 0, -1 }.Rotate(angle);
 			data.velocity = direction * kiko::randomf(m_data.speedMin, m_data.speedMax);

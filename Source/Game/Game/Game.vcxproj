@@ -172,7 +172,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Enemy.cpp" />
-    <ClCompile Include="laser.cpp" />
+    <ClCompile Include="WeaponComponent.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SpaceGame.cpp" />
@@ -196,7 +196,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Enemy.h" />
-    <ClInclude Include="Laser.h" />
+    <ClInclude Include="WeaponComponent.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SpaceGame.h" />
   </ItemGroup>

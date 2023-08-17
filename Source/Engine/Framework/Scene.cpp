@@ -15,7 +15,7 @@ namespace kiko
 			(*iter)->Update(dt);
 			// If an actor is destroyed, remove it from the scene by erasing it from the actors vector.
 			// Otherwise, move to the next actor.
-			((*iter)->m_destroyed) ? iter = m_actors.erase(iter) : iter++;
+			((*iter)->destroyed) ? iter = m_actors.erase(iter) : iter++;
 
 			// Check for collisions between actors
 		   // check collisions
