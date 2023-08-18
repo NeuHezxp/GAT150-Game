@@ -48,7 +48,7 @@ namespace kiko
 	{
 		for (auto& component : components)
 		{
-			T* result = dynamic_cast<T*>(component.get());
+			auto result = dynamic_cast<T*>(component.get());
 			if (result) return result;
 		}
 

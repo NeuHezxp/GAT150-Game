@@ -4,6 +4,13 @@
 
 namespace kiko
 {
+	bool Scene::Initialize()
+	{
+		for (auto& actor : m_actors) actor->Initialize();
+		
+		return true;
+	}
+
 	// This function updates the scene by updating all actors in the scene.
 	// It iterates through all actors, updates each one, and removes any destroyed actors from the scene.
 	// Additionally, it checks for collisions between actors and calls their OnCollision functions if a collision is detected.
@@ -60,5 +67,34 @@ namespace kiko
 	void Scene::RemoveAll()
 	{
 		m_actors.clear();
+	}
+
+	bool Scene::Load(const std::string& filename)
+	{
+	
+		rapidjson::Document document;
+		if(!Json::Load(filename, document))
+		{
+			ERROR_LOG("Could not load scene file: " << filename);
+			return false;
+		}
+		Read(document);
+		return true;
+	}
+
+	void Scene::Read(const json_t& value)
+	{
+		if (HAS_DATA(value, actors) && GET_DATA(value, actors).IsArray())
+		{
+			for (auto& actorValue : GET_DATA(value, actors).GetArray())
+			{
+				std::string type;
+				READ_DATA(actorValue, type);
+				auto actor = CREATE_CLASSBASE(Actor, type);
+				actor->Read(actorValue);
+
+				Add(std::move(actor));
+			}
+		}
 	}
 }

@@ -42,9 +42,10 @@ bool SpaceGame::Initialize()
 	kiko::g_audioSystem.AddAudio("hit", "laser_shoot.wav");
 	kiko::g_audioSystem.AddAudio("dash", "dashecho.wav");
 
-	//
+	//create scene
 	m_scene = std::make_unique<kiko::Scene>();
-	kiko::Scene scene;
+	m_scene->Load("Scene.json");
+	m_scene->Initialize();
 
 	return true;
 }
@@ -216,8 +217,8 @@ void SpaceGame::Draw(kiko::Renderer& renderer)
 		m_winnerText->Draw(kiko::g_renderer, 400, 200);
 	}
 	m_timerText->Draw(renderer, 400, 40);
+	m_scene->Draw(renderer);
 
 	m_scoreText->Draw(renderer, 40, 40);
-	m_scene->Draw(renderer);
 	kiko::g_particleSystem.Draw(renderer);
 }

@@ -11,7 +11,8 @@ namespace kiko
 
 	bool SpriteComponent::Initialize()
 	{
-		m_texture = GET_RESOURCE(Texture, textureName, g_renderer);
+		
+		if(!textureName.empty()) m_texture = GET_RESOURCE(Texture, textureName, g_renderer); // if not emp
 		return true;
 	}
 
@@ -27,6 +28,7 @@ namespace kiko
 	{
 		renderer.DrawTexture(m_texture.get(), m_owner->transform);
 	}
+
 	void SpriteComponent::Read(const json_t& value)
 	{
 		READ_DATA(value, textureName);
