@@ -63,6 +63,7 @@ void SpaceGame::Update(float dt)
 		if (kiko::g_inputSystem.GetKeyDown(SDL_SCANCODE_SPACE))
 		{
 			m_state = eState::StartGame;
+			m_scene->GetActorByName<kiko::Actor>("Background")->active = false;
 		}
 		//reset score/timer
 		m_score = 0;
@@ -85,7 +86,7 @@ void SpaceGame::Update(float dt)
 		player->m_game = this;
 		//create Components
 		auto renderComponent = CREATE_CLASS(SpriteComponent); //changed this from model to ModelRenderComponent
-		renderComponent->m_texture = GET_RESOURCE(kiko::Texture,"spaceship.png");//this too
+		renderComponent->m_texture = GET_RESOURCE(kiko::Texture,"spaceship.png",kiko::g_renderer);//this too
 		player->AddComponent(std::move(renderComponent));
 		//adding physics
 		auto physicsComponent = CREATE_CLASS(EnginePhysicsComponent);
@@ -97,11 +98,13 @@ void SpaceGame::Update(float dt)
 
 		player->Initialize();
 		m_scene->Add(std::move(player));
+		m_scene->GetActorByName("Title")->active = true;
 	}
 	m_state = eState::Game;
 	break;
 
 	case SpaceGame::eState::Game:
+		m_scene->GetActorByName("Title")->active = false;
 		m_gameTimer += dt; // a timer that counts down
 		m_spawnTimer += dt;
 		//if the player lasts long enough

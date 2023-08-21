@@ -9,7 +9,7 @@ namespace kiko
 {
 	class Scene;
 
-	class Actor : public Object // public to access object
+	class Actor : public Object  //public to access object
 	{
 	public:
 		CLASS_DECLARATION(Actor)
@@ -17,10 +17,12 @@ namespace kiko
 		Actor() = default;
 		Actor(const Transform& transform) :
 			transform{ transform } {}
+		Actor(const Actor& other);
+
 		virtual bool Initialize() override;
 		virtual void OnDestroy() override;
 
-		virtual  void Update(float dt); //dt for delta time /// pure virtual aka: abstract
+		virtual  void Update(float dt);// dt for delta time / pure virtual aka: abstract
 		virtual  void Draw(Renderer& renderer);
 
 		void AddComponent(std::unique_ptr<Component> component);
@@ -39,6 +41,8 @@ namespace kiko
 		std::string tag;
 		float lifespan = -1.0f;
 		bool destroyed = false; //flag
+		bool persistent = false;
+		bool prototype = false;
 
 	protected:
 		std::vector<std::unique_ptr<Component>> components;

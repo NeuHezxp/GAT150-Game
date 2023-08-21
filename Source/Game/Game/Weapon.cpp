@@ -5,11 +5,12 @@
 #include "Framework/Components/CollisionComponent.h"
 
 namespace kiko
-
+	
 {
+	CLASS_DEFINITION(Weapon)
 	void Weapon::Update(float dt)
 	{
-
+		Actor::Update(dt);
 		kiko::vec2 forward = kiko::vec2(0, -1).Rotate(transform.rotation);
 		transform.position += forward * speed * kiko::g_time.GetDeltaTime();
 
@@ -28,6 +29,8 @@ namespace kiko
 
 	bool Weapon::Initialize()
 	{
+		Actor::Initialize();
+
 		auto collisionComponent = GetComponent<CollisionComponent>();
 		if (collisionComponent)
 		{
@@ -43,5 +46,7 @@ namespace kiko
 	}
 	void Weapon::Read(const json_t& value)
 	{
+	Actor::Read(value);
+		READ_DATA(value, speed);
 	}
 }

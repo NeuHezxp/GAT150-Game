@@ -43,4 +43,21 @@ namespace kiko
 		// Render the text texture on the provided renderer using the defined rectangle
 		SDL_RenderCopy(renderer.m_renderer, m_texture, nullptr, &rect);
 	}
+
+	void Text::Draw(Renderer& renderer, const Transform& transform)
+	{
+		int width, height;
+		SDL_QueryTexture(m_texture, nullptr, nullptr, &width, &height);
+		mat3 mx = transform.GetMatrix();
+		vec2 position = mx.GetTranslation();
+		vec2 size = vec2{ width, height } *mx.GetScale();
+		SDL_Rect dest;
+		dest.x = (int)(position.x - (size.x / 2));
+		dest.y = (int)(position.y - (size.y / 2));
+		dest.w = static_cast<int>(size.x);
+		dest.h = static_cast<int>(size.y);
+		// https://wiki.libsdl.org/SDL2/SDL_RenderCopyEx
+		SDL_RenderCopyEx(renderer.m_renderer, m_texture, nullptr, &dest, RadiansToDegrees(mx.GetRotation()), nullptr, SDL_FLIP_NONE);
+	}
+
 }

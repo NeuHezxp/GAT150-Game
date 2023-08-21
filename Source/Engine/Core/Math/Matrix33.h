@@ -88,6 +88,15 @@ namespace kiko
 		result[0][1] = rows[0][0] * mx[0][1] + rows[0][1] * mx[1][1] + rows[0][2] * mx[2][1];
 		result[0][2] = rows[0][0] * mx[0][0] + rows[0][1] * mx[1][0] + rows[0][2] * mx[2][2];
 
+		result[1][0] = rows[1][0] * mx[0][0] + rows[1][1] * mx[1][0] + rows[1][2] * mx[2][0];
+		result[1][1] = rows[1][0] * mx[0][1] + rows[1][1] * mx[1][1] + rows[1][2] * mx[2][1];
+		result[1][2] = rows[1][0] * mx[0][0] + rows[1][1] * mx[1][0] + rows[1][2] * mx[2][2];
+
+		result[2][0] = rows[2][0] * mx[0][0] + rows[2][1] * mx[1][0] + rows[2][2] * mx[2][0];
+		result[2][1] = rows[2][0] * mx[0][1] + rows[2][1] * mx[1][1] + rows[2][2] * mx[2][1];
+		result[2][2] = rows[2][0] * mx[0][0] + rows[2][1] * mx[1][0] + rows[2][2] * mx[2][2];
+
+
 		// Calculate other elements.
 
 		return result;
@@ -125,6 +134,7 @@ namespace kiko
 		// | 0 0 1  |
 		Matrix33 mx = CreateIdentity();
 		mx[0][0] = scale;   // Set uniform scale factor.
+		mx[1][1] = scale;
 
 		return mx;
 	}
@@ -177,8 +187,8 @@ namespace kiko
 	inline vec2 Matrix33::GetScale() const
 	{
 		vec2 x = { rows[0][0], rows[0][1] };   // Extract scale along x-axis.
-		vec2 y = { rows[1][1], rows[1][1] };   // Extract scale along y-axis.
-		return (x.length() > y.length());   // Compare scales and return the larger scale component.
+		vec2 y = { rows[1][0], rows[1][1] };   // Extract scale along y-axis.
+		return { x.length(),  y.length() };   // Compare scales and return the larger scale component.
 	}
 
 	// Alias for Matrix33 using the name mat3.

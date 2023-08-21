@@ -17,6 +17,6 @@ namespace kiko
 	public:
 		std::string textureName;
 
-		res_t<Texture> m_texture; //member variable for texture
+		res_t<Texture> m_texture;// member variable for texture
 	};
 }

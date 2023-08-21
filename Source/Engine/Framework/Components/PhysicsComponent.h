@@ -4,7 +4,7 @@
 
 namespace kiko
 {
-	class PhysicsComponent : public Component //base class to physics components
+	class PhysicsComponent : public Component// base class to physics components
 	{
 	public:
 		virtual void ApplyForce(const vec2& force) = 0;

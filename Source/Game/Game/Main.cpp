@@ -113,10 +113,10 @@ int main(int argc, char* argv[])
 		// Draw the stars
 		kiko::g_renderer.setColor(255, 255, 255, 255);
 
-		// Draw the game elements and particles
-		game->Draw(kiko::g_renderer);
+		// Draw the game
 		kiko::g_particleSystem.Draw(kiko::g_renderer);
-		// Create a vector to store stars
+		game->Draw(kiko::g_renderer);
+		
 
 		// Update and draw the stars
 		for (auto& star : stars)

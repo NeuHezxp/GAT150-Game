@@ -12,32 +12,32 @@ namespace kiko
 	}
 
 	// This function updates the scene by updating all actors in the scene.
-	// It iterates through all actors, updates each one, and removes any destroyed actors from the scene.
-	// Additionally, it checks for collisions between actors and calls their OnCollision functions if a collision is detected.
+	 //It iterates through all actors, updates each one, and removes any destroyed actors from the scene.
+	 //Additionally, it checks for collisions between actors and calls their OnCollision functions if a collision is detected.
 	void Scene::Update(float dt)
 	{
 		auto iter = m_actors.begin();
 		while (iter != m_actors.end())
 		{
-			(*iter)->Update(dt);
+			
+			if (!(*iter)->active) (*iter)->Update(dt);
 			// If an actor is destroyed, remove it from the scene by erasing it from the actors vector.
 			// Otherwise, move to the next actor.
 			((*iter)->destroyed) ? iter = m_actors.erase(iter) : iter++;
-
-			// Check for collisions between actors
-		   // check collisions
+			
+			///Check for collisions between actors
+			//check collisions
 			for (auto iter1 = m_actors.begin(); iter1 != m_actors.end(); iter1++)
 			{
 				for (auto iter2 = std::next(iter1, 1); iter2 != m_actors.end(); iter2++)
 				{
-					///new vvvvvv
 					auto* collision1 = (*iter1)->GetComponent<CollisionComponent>();
 					auto* collision2 = (*iter2)->GetComponent<CollisionComponent>();
 
 					if (!collision1 || !collision2) continue;
 
 					if (collision1->CheckCollision(collision2))
-						/// ^^^^^
+						
 					{
 						(*iter1)->OnCollision(iter2->get());
 						(*iter2)->OnCollision(iter1->get());
@@ -52,7 +52,7 @@ namespace kiko
 	{
 		for (auto& actor : m_actors)
 		{
-			actor->Draw(renderer);
+			if(actor->active) actor->Draw(renderer);
 		}
 	}
 
@@ -64,9 +64,16 @@ namespace kiko
 	}
 
 	// This function removes all actors from the scene by clearing the m_actors vector.
-	void Scene::RemoveAll()
+	void Scene::RemoveAll(bool force)
 	{
-		m_actors.clear();
+
+		auto iter = m_actors.begin();
+		while (iter != m_actors.end())
+		{
+			// If an actor is destroyed, remove it from the scene by erasing it from the actors vector.
+			// Otherwise, move to the next actor.
+			(force || !(*iter)->persistent) ? iter = m_actors.erase(iter) : iter++;
+		}
 	}
 
 	bool Scene::Load(const std::string& filename)
@@ -93,7 +100,16 @@ namespace kiko
 				auto actor = CREATE_CLASSBASE(Actor, type);
 				actor->Read(actorValue);
 
-				Add(std::move(actor));
+				if(actor->prototype)
+				{
+					std::string name = actor->name;
+					Factory::Instance().RegisterPrototype(name, std::move(actor));
+				}
+				else
+				{
+					Add(std::move(actor));
+				}
+
 			}
 		}
 	}

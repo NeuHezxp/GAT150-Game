@@ -5,6 +5,21 @@ namespace kiko
 {
 	CLASS_DEFINITION(Actor)
 
+	Actor::Actor(const Actor& other)
+	{
+		name = other.name;
+		tag = other.tag;
+		lifespan = other.lifespan;
+		transform = other.transform;
+		m_scene = other.m_scene;
+		m_game = other.m_game;
+		for (auto& component : other.components)
+		{
+			auto cloneComponent = std::unique_ptr<Component>(dynamic_cast<Component*>(component->Clone().release()));
+			AddComponent(std::move(cloneComponent));
+		}
+	}
+
 	bool Actor::Initialize()
 	{
 		for (auto& component : components)
@@ -25,7 +40,7 @@ namespace kiko
 
 	// This function updates the actor's state based on the time elapsed since the last update (dt).
 	// If the actor has a lifespan set (lifespan != -1.0f), it decrements the lifespan and checks if it should be destroyed.
-	// The actor's position is updated based on its velocity and damping (deceleration) over time (dt).
+	//The actor's position is updated based on its velocity and damping (deceleration) over time (dt).
 	void Actor::Update(float dt)
 	{
 		if (lifespan != -1.0f)
@@ -33,7 +48,7 @@ namespace kiko
 			lifespan -= dt;
 			destroyed = (lifespan <= 0.0f);
 		}
-		for (auto& component : components) ///fix a issue with unique ptr and make it & actor
+		for (auto& component : components) //fix a issue with unique ptr and make it & actor
 		{
 			component->Update(dt);
 		}
@@ -43,7 +58,7 @@ namespace kiko
 	// It calls the Draw function of the actor's model, passing the renderer and the actor's transform as arguments.
 	void Actor::Draw(kiko::Renderer& renderer)
 	{
-		for (auto& component : components) ///fix a issue with unique ptr and make it & actor
+		for (auto& component : components) //fix a issue with unique ptr and make it & actor
 		{
 			if (dynamic_cast<RenderComponent*>(component.get()))
 			{
@@ -61,8 +76,12 @@ namespace kiko
 	void Actor::Read(const json_t& value)
 	{
 		Object::Read(value);
+
 		READ_DATA(value, tag);
 		READ_DATA(value, lifespan);
+		READ_DATA(value, persistent);
+		READ_DATA(value, prototype);
+
 		if (HAS_DATA(value, transform)) transform.Read(GET_DATA(value,transform));
 
 		if (HAS_DATA(value, components) && GET_DATA(value, components).IsArray())

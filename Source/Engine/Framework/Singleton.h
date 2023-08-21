@@ -2,7 +2,7 @@
 namespace kiko
 {
 	template<typename T>
-	class Singleton // new class that is a static singleton
+	class Singleton//  new class that is a static singleton
 	{
 	public:
 		Singleton(const Singleton& other) = delete;

@@ -15,18 +15,21 @@ namespace kiko //apart of engine gets namespace
 		void Draw(Renderer& renderer);
 
 		void Add(std::unique_ptr<Actor> actor);
-		void RemoveAll(); // clears scene
+		void RemoveAll(bool force = false); // clears scene
 
 		bool Load(const std::string& filename);
 		void Read(const json_t& value);
 
 		template<typename T>
 		T* GetActor();
+		template<typename T = Actor>
+		T* GetActorByName(const std::string& name);
+
 
 		friend class Actor;
 
 	private:
-		std::list <std::unique_ptr<Actor>> m_actors; //advatage over list: quick insert and remove certain elements
+		std::list <std::unique_ptr<Actor>> m_actors;// advantage over list: quick insert and remove certain elements
 	};
 
 	template <typename T>
@@ -36,6 +39,21 @@ namespace kiko //apart of engine gets namespace
 		{
 			T* result = dynamic_cast<T*> (actor.get());//getting pointer
 			if (result) return result;
+		}
+		return nullptr;
+	}
+
+	template <typename T>
+	T* Scene::GetActorByName(const std::string& name)
+	{
+		for (auto& actor : m_actors)
+		{
+			if (actor->name == name)
+			{
+				T* result = dynamic_cast<T*> (actor.get());//getting pointer
+				if (result) return result;
+
+			}
 		}
 		return nullptr;
 	}

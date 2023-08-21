@@ -23,6 +23,7 @@
     <ClCompile Include="Components\CircleCollisionComponent.cpp" />
     <ClCompile Include="Components\EnginePhysicsComponent.cpp" />
     <ClCompile Include="Components\SpriteComponent.cpp" />
+    <ClCompile Include="Components\TextRenderComponent.cpp" />
     <ClCompile Include="Emitter.cpp" />
     <ClCompile Include="ModelRenderComponent.cpp" />
     <ClCompile Include="Object.cpp" />
@@ -38,6 +39,7 @@
     <ClInclude Include="Components\PhysicsComponent.h" />
     <ClInclude Include="Components\RenderComponent.h" />
     <ClInclude Include="Components\SpriteComponent.h" />
+    <ClInclude Include="Components\TextRenderComponent.h" />
     <ClInclude Include="Emitter.h" />
     <ClInclude Include="Factory.h" />
     <ClInclude Include="Framework.h" />

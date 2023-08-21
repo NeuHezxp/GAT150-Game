@@ -61,6 +61,7 @@ void Enemy::OnCollision(Actor* other)
 		m_game->AddPoints(100);
 		destroyed = true;
 		kiko::g_audioSystem.PlayOneShot("explosion");
+
 	}
 }
 
