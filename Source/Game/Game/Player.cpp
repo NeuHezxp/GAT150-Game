@@ -135,7 +135,6 @@ void Player::Update(float dt)
 
 	//if (kiko::g_inputSystem.GetKeyDown(SDL_SCANCODE_T)) kiko::g_time.SetTimeScale(.1f);
 	//else kiko::g_time.SetTimeScale(1);
-	std::cout <<transform.position.x << " " <<transform.position.y << std::endl;
 }
 
 void Player::OnCollision(Actor* other)

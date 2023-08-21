@@ -70,13 +70,13 @@ int main(int argc, char* argv[])
 
 	// Create a vector to store stars
 	std::vector<Star> stars;
-	for (int i = 0; i < 1000; i++)
+	/*for (int i = 0; i < 1000; i++)
 	{
 		auto pos(kiko::Vector2(kiko::random(kiko::g_renderer.getWidth()), kiko::random(kiko::g_renderer.getHeight())));
 		kiko::Vector2 vel(kiko::randomf(100, 200), 0.0f);
 
 		stars.push_back(Star(pos, vel));
-	}
+	}*/
 	INFO_LOG("Updating engine Components in main")
 		// Main Loop that runs the game
 		bool quit = false;

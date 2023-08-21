@@ -7,4 +7,3 @@ INFO: Factory.h(68) Class Registered CircleCollisionComponent
 INFO: Factory.h(68) Class Registered Actor
 INFO: Main.cpp(52) Initializing Game
 INFO: Main.cpp(80) Updating engine Components in main
-WARNING: Texture.cpp(38) Failed to load texture: bettership.png

@@ -120,7 +120,7 @@ void SpaceGame::Update(float dt)
 			enemy->m_game = this;
 			//create components
 			auto component = std::make_unique<kiko::SpriteComponent>();
-			component->m_texture = GET_RESOURCE(kiko::Texture,"bettership.png", kiko::g_renderer);
+			component->m_texture = GET_RESOURCE(kiko::Texture,"spaceship.png", kiko::g_renderer);
 			enemy->AddComponent(std::move(component));
 
 			enemy->Initialize();
