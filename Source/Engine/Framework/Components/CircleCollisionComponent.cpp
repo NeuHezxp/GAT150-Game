@@ -3,9 +3,8 @@
 
 namespace kiko
 {
-
 	CLASS_DEFINITION(CircleCollisionComponent)
-	void kiko::CircleCollisionComponent::Update(float dt)
+		void kiko::CircleCollisionComponent::Update(float dt)
 	{
 	}
 
@@ -18,7 +17,5 @@ namespace kiko
 	}
 	void CircleCollisionComponent::Read(const json_t& value)
 	{
-		
 	}
-
 }

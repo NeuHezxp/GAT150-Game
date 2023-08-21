@@ -30,9 +30,8 @@ namespace kiko
 
 		CLASS_DECLARATION(Object)
 
-		virtual bool Initialize() { return true; }
+			virtual bool Initialize() { return true; }
 		virtual void OnDestroy() {}
-
 
 	public:
 		std::string name;

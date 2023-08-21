@@ -4,7 +4,6 @@
 
 namespace kiko
 {
-
 	// Implementation of the Log function of the Logger class.
 	// This function logs the message with the specified log level, file name, and line number.
 	bool Logger::Log(LogLevel logLevel, const std::string& filename, int line)

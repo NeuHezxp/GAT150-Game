@@ -15,18 +15,16 @@ namespace kiko
 		text = other.text;
 		fontName = other.fontName;
 		fontSize = other.fontSize;
-			m_changed = true;
+		m_changed = true;
 		m_text = std::make_unique<Text>(*other.m_text.get());
-
 	}
 	bool TextRenderComponent::Initialize()
 	{
-		if (!fontName.empty()) m_text = std::make_unique<kiko::Text>(GET_RESOURCE( Font, fontName, fontSize));
-				return true;
+		if (!fontName.empty()) m_text = std::make_unique<kiko::Text>(GET_RESOURCE(Font, fontName, fontSize));
+		return true;
 	}
 	void TextRenderComponent::Update(float dt)
 	{
-		
 	}
 	void TextRenderComponent::Draw(Renderer& renderer)
 	{
@@ -34,10 +32,10 @@ namespace kiko
 		if (m_changed)
 		{
 			m_changed = false;
-			 //create text using text string and color
+			//create text using text string and color
 			m_text->Create(renderer, text, { 1, 1, 1, 1 });
 		}
-		 //draw text
+		//draw text
 		m_text->Draw(renderer, m_owner->transform);
 	}
 	void TextRenderComponent::SetText(const std::string& string)
@@ -52,7 +50,7 @@ namespace kiko
 	void TextRenderComponent::Read(const json_t& value)
 	{
 		READ_DATA(value, text);
-		READ_DATA(value,fontName);
-		READ_DATA(value,fontSize);
+		READ_DATA(value, fontName);
+		READ_DATA(value, fontSize);
 	}
 }

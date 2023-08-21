@@ -25,7 +25,6 @@ namespace kiko //apart of engine gets namespace
 		template<typename T = Actor>
 		T* GetActorByName(const std::string& name);
 
-
 		friend class Actor;
 
 	private:
@@ -52,7 +51,6 @@ namespace kiko //apart of engine gets namespace
 			{
 				T* result = dynamic_cast<T*> (actor.get());//getting pointer
 				if (result) return result;
-
 			}
 		}
 		return nullptr;

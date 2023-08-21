@@ -39,5 +39,4 @@ namespace kiko
 
 		void Read(const json_t& value);
 	};
-
 }

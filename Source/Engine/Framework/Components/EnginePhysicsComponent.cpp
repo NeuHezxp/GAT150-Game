@@ -5,7 +5,7 @@ namespace kiko
 {
 	CLASS_DEFINITION(EnginePhysicsComponent)
 
-	void EnginePhysicsComponent::Update(float dt)
+		void EnginePhysicsComponent::Update(float dt)
 	{
 		m_owner->transform.position += m_velocity * dt;
 		m_velocity *= std::pow(1.0f - m_damping, dt);
@@ -17,7 +17,5 @@ namespace kiko
 	}
 	void EnginePhysicsComponent::Read(const json_t& value)
 	{
-		
 	}
-
 }

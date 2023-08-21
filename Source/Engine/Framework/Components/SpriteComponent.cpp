@@ -8,18 +8,16 @@ namespace kiko
 {
 	CLASS_DEFINITION(SpriteComponent)
 
-
-	bool SpriteComponent::Initialize()
+		bool SpriteComponent::Initialize()
 	{
-		
-		if(!textureName.empty()) m_texture = GET_RESOURCE(Texture, textureName, g_renderer);//  if not emp
+		if (!textureName.empty()) m_texture = GET_RESOURCE(Texture, textureName, g_renderer);//  if not emp
 		return true;
 	}
 
 	void SpriteComponent::Update(float dt)
 	{
 	}
-	
+
 	/*void SpriteComponent::Draw(Renderer& renderer)
 	{
 		renderer.DrawTexture(m_texture.get(),m_owner->transform.position.x, m_owner->transform.position.y, RadiansToDegrees(m_owner->transform.rotation));
@@ -33,5 +31,4 @@ namespace kiko
 	{
 		READ_DATA(value, textureName);
 	}
-
 }

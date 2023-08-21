@@ -16,7 +16,7 @@
 bool SpaceGame::Initialize()
 {
 	// create font / text objects
-	m_font = GET_RESOURCE(kiko::Font,"arcadeclassic.ttf", 24);
+	m_font = GET_RESOURCE(kiko::Font, "arcadeclassic.ttf", 24);
 	m_scoreText = std::make_unique<kiko::Text>(GET_RESOURCE(kiko::Font, "arcadeclassic.ttf", 24));
 	m_scoreText->Create(kiko::g_renderer, "Score 0000", kiko::Color{ 1, 1, 1, 1 });
 
@@ -86,7 +86,7 @@ void SpaceGame::Update(float dt)
 		player->m_game = this;
 		//create Components
 		auto renderComponent = CREATE_CLASS(SpriteComponent); //changed this from model to ModelRenderComponent
-		renderComponent->m_texture = GET_RESOURCE(kiko::Texture,"spaceship.png",kiko::g_renderer);//this too
+		renderComponent->m_texture = GET_RESOURCE(kiko::Texture, "spaceship.png", kiko::g_renderer);//this too
 		player->AddComponent(std::move(renderComponent));
 		//adding physics
 		auto physicsComponent = CREATE_CLASS(EnginePhysicsComponent);
@@ -120,7 +120,7 @@ void SpaceGame::Update(float dt)
 			enemy->m_game = this;
 			//create components
 			auto component = std::make_unique<kiko::SpriteComponent>();
-			component->m_texture = GET_RESOURCE(kiko::Texture,"spaceship.png", kiko::g_renderer);
+			component->m_texture = GET_RESOURCE(kiko::Texture, "spaceship.png", kiko::g_renderer);
 			enemy->AddComponent(std::move(component));
 
 			enemy->Initialize();

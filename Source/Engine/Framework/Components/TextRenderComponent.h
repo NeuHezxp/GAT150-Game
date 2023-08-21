@@ -8,7 +8,7 @@ namespace kiko
 	{
 	public:
 		CLASS_DECLARATION(TextRenderComponent)
-		TextRenderComponent() = default;
+			TextRenderComponent() = default;
 		TextRenderComponent(const TextRenderComponent& other);
 		bool Initialize() override;
 		void Update(float dt) override;

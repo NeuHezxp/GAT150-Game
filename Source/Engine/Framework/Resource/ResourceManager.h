@@ -8,7 +8,6 @@
 
 #define GET_RESOURCE(type,filename, ... ) kiko::ResourceManager::Instance().Get<type>(filename, __VA_ARGS__)
 
-
 namespace kiko
 {
 	// ResourceManager is a class responsible for managing resources and providing access to them.
@@ -56,5 +55,4 @@ namespace kiko
 		// Return the shared pointer to the newly created resource.
 		return resource;
 	}
-
 }

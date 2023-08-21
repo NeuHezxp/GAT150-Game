@@ -7,7 +7,7 @@ namespace kiko
 	bool Scene::Initialize()
 	{
 		for (auto& actor : m_actors) actor->Initialize();
-		
+
 		return true;
 	}
 
@@ -19,12 +19,11 @@ namespace kiko
 		auto iter = m_actors.begin();
 		while (iter != m_actors.end())
 		{
-			
 			if (!(*iter)->active) (*iter)->Update(dt);
 			// If an actor is destroyed, remove it from the scene by erasing it from the actors vector.
 			// Otherwise, move to the next actor.
 			((*iter)->destroyed) ? iter = m_actors.erase(iter) : iter++;
-			
+
 			///Check for collisions between actors
 			//check collisions
 			for (auto iter1 = m_actors.begin(); iter1 != m_actors.end(); iter1++)
@@ -37,7 +36,7 @@ namespace kiko
 					if (!collision1 || !collision2) continue;
 
 					if (collision1->CheckCollision(collision2))
-						
+
 					{
 						(*iter1)->OnCollision(iter2->get());
 						(*iter2)->OnCollision(iter1->get());
@@ -52,7 +51,7 @@ namespace kiko
 	{
 		for (auto& actor : m_actors)
 		{
-			if(actor->active) actor->Draw(renderer);
+			if (actor->active) actor->Draw(renderer);
 		}
 	}
 
@@ -66,7 +65,6 @@ namespace kiko
 	// This function removes all actors from the scene by clearing the m_actors vector.
 	void Scene::RemoveAll(bool force)
 	{
-
 		auto iter = m_actors.begin();
 		while (iter != m_actors.end())
 		{
@@ -78,9 +76,8 @@ namespace kiko
 
 	bool Scene::Load(const std::string& filename)
 	{
-	
 		rapidjson::Document document;
-		if(!Json::Load(filename, document))
+		if (!Json::Load(filename, document))
 		{
 			ERROR_LOG("Could not load scene file: " << filename);
 			return false;
@@ -100,7 +97,7 @@ namespace kiko
 				auto actor = CREATE_CLASSBASE(Actor, type);
 				actor->Read(actorValue);
 
-				if(actor->prototype)
+				if (actor->prototype)
 				{
 					std::string name = actor->name;
 					Factory::Instance().RegisterPrototype(name, std::move(actor));
@@ -109,7 +106,6 @@ namespace kiko
 				{
 					Add(std::move(actor));
 				}
-
 			}
 		}
 	}

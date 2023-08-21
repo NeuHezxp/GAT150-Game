@@ -63,7 +63,6 @@ namespace kiko
 		std::ofstream m_fstream;   // File stream for file logging (optional)
 	};
 
-
 	// Operator overload for streaming messages to the logger
 	template<typename T>
 	inline Logger& Logger::operator << (T value)

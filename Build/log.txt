@@ -5,5 +5,5 @@ INFO: Factory.h(68) Class Registered SpriteComponent
 INFO: Factory.h(68) Class Registered EnginePhysicsComponent
 INFO: Factory.h(68) Class Registered CircleCollisionComponent
 INFO: Factory.h(68) Class Registered Actor
-INFO: Main.cpp(52) Initializing Game
-INFO: Main.cpp(80) Updating engine Components in main
+INFO: Main.cpp(49) Initializing Game
+INFO: Main.cpp(77) Updating engine Components in main

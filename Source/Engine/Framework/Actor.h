@@ -14,7 +14,7 @@ namespace kiko
 	public:
 		CLASS_DECLARATION(Actor)
 
-		Actor() = default;
+			Actor() = default;
 		Actor(const Transform& transform) :
 			transform{ transform } {}
 		Actor(const Actor& other);
