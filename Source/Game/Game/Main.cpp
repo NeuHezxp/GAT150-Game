@@ -13,6 +13,7 @@
 #include <thread>
 #include "Core/Json.h"
 #include "Framework/Factory.h"
+#include "Physics/PhysicsSystem.h"
 //#include <array>
 //#include <map>
 
@@ -60,6 +61,7 @@ int main(int argc, char* argv[])
 	kiko::AudioSystem audioSystem;
 	kiko::g_audioSystem.Initialize();
 	kiko::g_inputSystem.Initialize();
+	kiko::PhysicsSystem::Instance().Initialize();
 
 	// Create the game
 	auto game = make_unique<SpaceGame>();

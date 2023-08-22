@@ -19,7 +19,7 @@ namespace kiko
 		auto iter = m_actors.begin();
 		while (iter != m_actors.end())
 		{
-			if (!(*iter)->active) (*iter)->Update(dt);
+			if ((*iter)->active) (*iter)->Update(dt);
 			// If an actor is destroyed, remove it from the scene by erasing it from the actors vector.
 			// Otherwise, move to the next actor.
 			((*iter)->destroyed) ? iter = m_actors.erase(iter) : iter++;

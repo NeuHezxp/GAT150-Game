@@ -1,30 +1,33 @@
 #pragma once
 #include "Framework/Actor.h"
 
-class Enemy : public kiko::Actor
-{
-public:
-	Enemy(float speed, float turnRate, const kiko::Transform& transform) :
-		Actor{ transform },
-		m_speed{ speed },
-		m_turnRate{ turnRate }//without it calls the default constructor
+namespace kiko {
+	
+	class Enemy : public kiko::Actor
 	{
-		m_firerate = 2.0f;
-		m_fireTimer = m_firerate;
-	}
+	public:
+		CLASS_DECLARATION(Enemy)
+		Enemy(float speed, float turnRate, const kiko::Transform& transform) :
+			Actor{ transform },
+			speed{ speed },
+			turnRate{ turnRate }//without it calls the default constructor
+		{
+			fireRate = 2.0f;
+			fireTimer = fireRate;
+		}
+		Enemy() = default;
 
-	void Update(float dt) override; //dt
+		void Update(float dt) override; //dt
 
-	void OnCollision(Actor* other) override;
+		void OnCollision(Actor* other) override;
 
-	bool Initialize() override;
+		bool Initialize() override;
 
-protected:
-	float m_speed = 0;
-	float m_turnRate = 0;
+	protected:
+		float speed = 0;
+		float turnRate = 0;
 
-	float m_firerate = 0;
-	float m_fireTimer = 0;
-
-	float m_health = 25;
-};
+		float fireRate = 0;
+		float fireTimer = 0;
+	};
+}
