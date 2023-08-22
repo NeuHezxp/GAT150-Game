@@ -8,6 +8,8 @@
 #define CREATE_CLASS(classname) kiko::Factory::Instance().Create<kiko::classname>(#classname);
 #define CREATE_CLASSBASE(classbase, classname) kiko::Factory::Instance().Create<classbase>(classname);
 #define INSTANTIATE(classbase, classname) kiko::Factory::Instance().Create<classbase>(classname);
+#define INSTANTIATE_ACTOR(classname) kiko::Factory::Instance().Create<kiko::Actor>(classname);
+
 namespace kiko
 {
 	class Object;

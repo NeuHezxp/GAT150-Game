@@ -76,29 +76,34 @@ void SpaceGame::Update(float dt)
 		break;
 
 	case SpaceGame::eState::StartLevel:
+		m_scene->RemoveAll();
+
 	{
 		//Create Player
-		m_scene->RemoveAll();
-		auto player = std::make_unique<kiko::Player>(10.0f, kiko::Pi, kiko::Transform{ {400, 300}, 0, 4 });
-		player->tag = "Player";
-		player->m_game = this;
-
-		player->m_game = this;
-		//create Components
-		auto renderComponent = CREATE_CLASS(SpriteComponent); //changed this from model to ModelRenderComponent
-		renderComponent->m_texture = GET_RESOURCE(kiko::Texture, "spaceship.png", kiko::g_renderer);//this too
-		player->AddComponent(std::move(renderComponent));
-		//adding physics
-		auto physicsComponent = CREATE_CLASS(EnginePhysicsComponent);
-		player->AddComponent(std::move(physicsComponent));
-
-		auto collisionComponent = CREATE_CLASS(CircleCollisionComponent);
-		collisionComponent->m_radius = 30.f;
-		player->AddComponent(std::move(collisionComponent));
-
+		
+		auto player = INSTANTIATE(kiko::Player, "Player");
+		player->transform = kiko::Transform({ 400,300 }, 0, 1);
 		player->Initialize();
 		m_scene->Add(std::move(player));
+		//player->tag = "Player";
+		//player->m_game = this;
+			//player->m_game = this;
+
+		//create Components
+		//auto renderComponent = CREATE_CLASS(SpriteComponent); //changed this from model to ModelRenderComponent
+		//renderComponent->m_texture = GET_RESOURCE(kiko::Texture, "spaceship.png", kiko::g_renderer);//this too
+		//player->AddComponent(std::move(renderComponent));
+		//adding physics
+		//auto physicsComponent = CREATE_CLASS(EnginePhysicsComponent);
+		//player->AddComponent(std::move(physicsComponent));
+
+		//auto collisionComponent = CREATE_CLASS(CircleCollisionComponent);
+		//collisionComponent->m_radius = 30.f;
+		//player->AddComponent(std::move(collisionComponent));
+
+		
 		m_scene->GetActorByName("Title")->active = true;
+		
 	}
 	m_state = eState::Game;
 	break;

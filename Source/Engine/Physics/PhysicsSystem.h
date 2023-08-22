@@ -15,6 +15,6 @@ namespace kiko
     private:
         PhysicsSystem() = default; // Declare default constructor
     private:
-        std::unique_ptr<b2World> m_world; // Use correct type for unique_ptr
+        std::unique_ptr<b2World> m_world; 
     };
 } // namespace kiko
