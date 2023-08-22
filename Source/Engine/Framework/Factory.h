@@ -85,6 +85,8 @@ namespace kiko
 		{
 			return std::unique_ptr<T>(dynamic_cast<T*>(iter->second->Create().release()));//1st get key, 2nd gets value  Create makes raw ptr. release gives us the pointer
 		}
+		ERROR_LOG("Class not found " << key);
+
 		return std::unique_ptr<T>();
 	}
 }

@@ -62,7 +62,7 @@ namespace kiko {
 		{
 			m_game->AddPoints(100);
 			destroyed = true;
-			kiko::g_audioSystem.PlayOneShot("explosion");
+			g_audioSystem.PlayOneShot("explosion");
 		}
 	}
 

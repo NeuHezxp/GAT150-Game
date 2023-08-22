@@ -47,10 +47,9 @@ namespace kiko
 		transform.rotation += rotate * turnRate * g_time.GetDeltaTime();
 
 		float thrust = 0;
-		if (kiko::g_inputSystem.GetKeyDown(SDL_SCANCODE_W))
+		if (g_inputSystem.GetKeyDown(SDL_SCANCODE_W))
 		{
 			thrust = 1;
-			std::cout << "moving" << std::endl;
 		}
 		kiko::vec2 forward = vec2{ 0, -1 }.Rotate(transform.rotation);
 

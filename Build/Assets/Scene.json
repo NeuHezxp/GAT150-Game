@@ -72,34 +72,6 @@
         }
       ]
     },
-    //{
-    //  "type": "Enemy",
-    //  "name": "Enemy",
-    //  "prototype": true,
-    //  "tag": "Enemy",
-    //  "transform": {
-    //    "position": [
-    //      400,
-    //      300
-    //    ],
-    //    "scale": 1.0,
-    //    "rotation": 0
-    //  },
-    //  "speed": 10,
-    //  "turnRate": 2.0,
-    //  "components": [
-    //    {
-    //      "type": "SpriteComponent",
-    //      "textureName": "Spaceship.png"
-    //    },
-    //    {
-    //      "type": "EnginePhysicsComponent"
-    //    },
-    //    {
-    //      "type": "CircleCollisionComponent"
-    //    }
-    //  ]
-    //},
     {
       "type": "Actor",
       "name": "Title",
