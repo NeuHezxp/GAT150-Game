@@ -3,7 +3,10 @@
 #include "Renderer/Text.h"
 #include <memory>
 
-class SpaceGame : public kiko::Game
+#include "Framework/Event/Event.h"
+#include "Framework/Event/EventManager.h"
+
+class SpaceGame : public kiko::Game, public kiko::IEventListener
 {
 public:
 	enum class eState
@@ -29,6 +32,10 @@ public:
 	virtual void Draw(kiko::Renderer& renderer) override;
 
 	void SetState(eState state) { m_state = state; }
+
+	virtual void OnAddPoints(const kiko::Event& event);
+	void OnPlayerDead(const kiko::Event& event);
+
 
 private:
 	eState m_state = eState::Title;

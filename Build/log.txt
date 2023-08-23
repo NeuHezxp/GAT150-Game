@@ -7,5 +7,7 @@ INFO: Factory.h(70) Class Registered SpriteComponent
 INFO: Factory.h(70) Class Registered EnginePhysicsComponent
 INFO: Factory.h(70) Class Registered CircleCollisionComponent
 INFO: Factory.h(70) Class Registered Actor
-INFO: Main.cpp(50) Initializing Game
-INFO: Main.cpp(79) Updating engine Components in main
+INFO: Main.cpp(56) Initializing Main
+INFO: EventManager.cpp(21) Event Subscribed: OnAddPoints
+INFO: EventManager.cpp(21) Event Subscribed: OnPlayerDead
+INFO: Main.cpp(85) Updating engine Components in main

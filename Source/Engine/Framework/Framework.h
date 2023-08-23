@@ -15,6 +15,8 @@
 #include "Resource/Resource.h"
 #include "Resource/ResourceManager.h"
 
+#include "Event/EventManager.h"
+
 #include "Actor.h"
 #include "Emitter.h"
 #include "Game.h"

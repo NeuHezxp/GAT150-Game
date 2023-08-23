@@ -8,6 +8,8 @@
 #include "SpaceGame.h"
 #include <cassert>
 
+#include <functional>
+
 #include <iostream>
 #include <vector>
 #include <thread>
@@ -45,9 +47,13 @@ public:
 	kiko::vec2 m_vel;
 };
 
+
+
 int main(int argc, char* argv[])
 {
-	INFO_LOG("Initializing Game")
+
+
+	INFO_LOG("Initializing Main")
 		// Initialize the game engine
 		kiko::MemoryTracker::Initialize();
 	kiko::seedRandom(static_cast<unsigned int>(time(nullptr)));

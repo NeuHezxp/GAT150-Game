@@ -60,14 +60,17 @@ namespace kiko {
 
 		if (other->tag == "PlayerLaser")
 		{
+			EventManager::Instance().DispatchEvent("AddPoints", 100);
 			m_game->AddPoints(100);
 			destroyed = true;
 			g_audioSystem.PlayOneShot("explosion");
 		}
+		kiko::EventManager::Instance().DispatchEvent("OnPlayerDead", 0);
 	}
 
 	bool Enemy::Initialize()
 	{
+		Actor::Initialize();
 		auto collisionComponent = GetComponent<kiko::CollisionComponent>();
 		if (collisionComponent)
 		{
@@ -89,4 +92,5 @@ namespace kiko {
 		READ_DATA(value, fireRate);
 		READ_DATA(value, fireTimer);
 	}
+
 }

@@ -7,14 +7,14 @@ namespace kiko {
 	{
 	public:
 		CLASS_DECLARATION(Enemy)
-		Enemy(float speed, float turnRate, const kiko::Transform& transform) :
-			Actor{ transform },
-			speed{ speed },
-			turnRate{ turnRate }//without it calls the default constructor
-		{
-			fireRate = 2.0f;
-			fireTimer = fireRate;
-		}
+		//Enemy(float speed, float turnRate, const kiko::Transform& transform) :
+		//	Actor{ transform },
+		//	speed{ speed },
+		//	turnRate{ turnRate }//without it calls the default constructor
+		//{
+		//	fireRate = 2.0f;
+		//}
+		//	fireTimer = fireRate;
 		Enemy() = default;
 
 		void Update(float dt) override; //dt

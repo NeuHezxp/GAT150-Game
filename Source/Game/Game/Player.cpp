@@ -85,9 +85,8 @@ namespace kiko
 	{
 		if (other->tag == "Enemy") // could be a enemies bullet
 		{
-			m_game->setLives(m_game->Getlives() - 1);
 			destroyed = true;
-			dynamic_cast<SpaceGame*>(m_game)->SetState(SpaceGame::eState::PlayerDeadStart);
+			kiko::EventManager::Instance().DispatchEvent("OnPlayerDead", 0);
 		}
 	}
 
