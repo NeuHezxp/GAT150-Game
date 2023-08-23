@@ -108,7 +108,7 @@ void SpaceGame::Update(float dt)
 		{
 			m_spawnTimer = 0;
 			auto enemy = INSTANTIATE(kiko::Enemy, "Enemy");
-			enemy->transform = kiko::Transform({ 400,300 }, 0, 1);
+			enemy->transform = kiko::Transform({ kiko::random(kiko::g_renderer.getWidth()),kiko::random(kiko::g_renderer.getHeight()) }, kiko::randomf(kiko::TwoPi), 1);
 			enemy->Initialize();
 			m_scene->Add(std::move(enemy));
 			/*auto enemy = std::make_unique<kiko::Enemy>(kiko::randomf(75.0f, 15.0f), kiko::Pi, kiko::Transform{ {kiko::random(kiko::g_renderer.getWidth()), kiko::random(kiko::g_renderer.getHeight())}, kiko::randomf(kiko::TwoPi), 4 });
