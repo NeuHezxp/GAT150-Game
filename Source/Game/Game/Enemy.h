@@ -1,5 +1,6 @@
 #pragma once
 #include "Framework/Actor.h"
+#include "Framework/Components/PhysicsComponent.h"
 
 namespace kiko {
 	
@@ -7,19 +8,11 @@ namespace kiko {
 	{
 	public:
 		CLASS_DECLARATION(Enemy)
-		//Enemy(float speed, float turnRate, const kiko::Transform& transform) :
-		//	Actor{ transform },
-		//	speed{ speed },
-		//	turnRate{ turnRate }//without it calls the default constructor
-		//{
-		//	fireRate = 2.0f;
-		//}
-		//	fireTimer = fireRate;
 		Enemy() = default;
 
 		void Update(float dt) override; //dt
 
-		void OnCollision(Actor* other) override;
+		void OnCollisionEnter(Actor* other) override;
 
 		bool Initialize() override;
 
@@ -29,5 +22,7 @@ namespace kiko {
 
 		float fireRate = 0;
 		float fireTimer = 0;
+
+		kiko::PhysicsComponent* m_physicsComponent = nullptr;
 	};
 }

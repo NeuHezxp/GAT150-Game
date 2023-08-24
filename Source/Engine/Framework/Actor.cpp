@@ -91,7 +91,7 @@ namespace kiko
 				std::string type;
 				READ_DATA(componentValue, type);
 				auto component = CREATE_CLASSBASE(Component, type);
-				component->Read(componentValue);
+   				component->Read(componentValue);
 
 				AddComponent(std::move(component));
 			}

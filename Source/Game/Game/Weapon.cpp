@@ -10,7 +10,7 @@ namespace kiko
 	CLASS_DEFINITION(Weapon)
 		void Weapon::Update(float dt)
 	{
-		Actor::Update(dt);
+		Actor::Initialize();
 		kiko::vec2 forward = kiko::vec2(0, -1).Rotate(transform.rotation);
 		transform.position += forward * speed * kiko::g_time.GetDeltaTime();
 
@@ -18,7 +18,7 @@ namespace kiko
 		transform.position.y = kiko::Wrap(transform.position.y, (float)kiko::g_renderer.getHeight());
 	}
 
-	void Weapon::OnCollision(Actor* other)
+	void Weapon::OnCollisionEnter(Actor* other)
 	{
 		if (other->tag != tag)
 		{

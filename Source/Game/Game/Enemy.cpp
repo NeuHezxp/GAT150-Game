@@ -20,25 +20,24 @@ namespace kiko {
 		void Enemy::Update(float dt)
 	{
 		Actor::Update(dt);
+		Actor::Initialize();
 
+		m_physicsComponent = GetComponent<PhysicsComponent>();
 		kiko::vec2 forward = kiko::vec2{ 0, -1 }.Rotate(transform.rotation);
 		Player* player = m_scene->GetActor<Player>();
 		if (player)
 		{
 			kiko::Vector2 direction = player->transform.position - transform.position;
 			transform.rotation = direction.Angle() + kiko::HalfPi;
-
+			//m_physicsComponent->ApplyTorque(turnAngle); fix this
 			float angle = kiko::vec2::SignedAngle(forward, direction.Normalized());
-			if (std::fabs(angle) < kiko::DegreesToRadians(30.0f))
-			{
-				// fire
-			}
 		}
 
-		transform.position += forward * speed * kiko::g_time.GetDeltaTime();
+		m_physicsComponent->ApplyForce(forward * speed); 
+		//transform.position += forward * speed * kiko::g_time.GetDeltaTime();
 		transform.position.x = kiko::Wrap(transform.position.x, static_cast<float>(kiko::g_renderer.getWidth()));
 		transform.position.y = kiko::Wrap(transform.position.y, static_cast<float>(kiko::g_renderer.getHeight()));
-
+/*
 		////decrement the time and reset the timer // use fire timer  => 0 reset the fire timer
 		//if (fireTimer <= 0)
 		//{
@@ -52,9 +51,10 @@ namespace kiko {
 		//{
 		//	fireTimer -= dt; // subtracting dt from fireTimer
 		//}
+		*/
 	}
 
-	void Enemy::OnCollision(Actor* other)
+	void Enemy::OnCollisionEnter(Actor* other)
 	{
 		//dynamic_cast<Player*>(other); //can check for type
 
@@ -90,7 +90,6 @@ namespace kiko {
 		READ_DATA(value, speed);
 		READ_DATA(value, turnRate);
 		READ_DATA(value, fireRate);
-		READ_DATA(value, fireTimer);
 	}
 
 }

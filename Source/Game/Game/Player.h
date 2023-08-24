@@ -9,7 +9,7 @@ namespace kiko
 	public:
 		CLASS_DECLARATION(Player)
 
-		void OnCollision(Actor* other) override;
+		void OnCollisionEnter(Actor* other) override;
 		bool Initialize() override;
 		void Update(float dt) override; //dt for delta time
 	private:

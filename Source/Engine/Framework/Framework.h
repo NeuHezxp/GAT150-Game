@@ -8,10 +8,10 @@
 #include "Components/SpriteComponent.h"
 #include "Components/RenderComponent.h"
 #include "Components/ModelRenderComponent.h"
-
 #include "Components/CollisionComponent.h"
 #include "Components/CircleCollisionComponent.h"
-
+#include "Components/Box2dPhysicsComponent.h"
+#include "Components/Box2dCollisionComponent.h"
 #include "Resource/Resource.h"
 #include "Resource/ResourceManager.h"
 

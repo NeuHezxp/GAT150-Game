@@ -55,7 +55,7 @@ int main(int argc, char* argv[])
 
 	INFO_LOG("Initializing Main")
 		// Initialize the game engine
-		kiko::MemoryTracker::Initialize();
+	kiko::MemoryTracker::Initialize();
 	kiko::seedRandom(static_cast<unsigned int>(time(nullptr)));
 	kiko::setFilePath("assets");
 
@@ -92,6 +92,8 @@ int main(int argc, char* argv[])
 		kiko::g_inputSystem.Update();
 		kiko::g_audioSystem.Update();
 		kiko::g_particleSystem.Update(kiko::g_time.GetDeltaTime());
+
+		kiko::PhysicsSystem::Instance().Update(kiko::g_time.GetDeltaTime());
 
 		// Check for quit condition (using the escape key)
 		if (kiko::g_inputSystem.GetKeyDown(SDL_SCANCODE_ESCAPE))

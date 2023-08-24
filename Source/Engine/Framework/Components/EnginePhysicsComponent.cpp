@@ -20,4 +20,9 @@ namespace kiko
 	{
 		m_damping = 0.9f;
 	}
+	void EnginePhysicsComponent::ApplyTorque(float torque)
+	{
+		
+	}
+
 }

@@ -35,7 +35,7 @@ namespace kiko
 				collisionComponent->m_radius = renderComponent->GetRadius() * scale;
 			}
 		}
-		return true; // does work
+		return true; 
 	}
 	void Player::Update(float dt)
 	{
@@ -44,7 +44,8 @@ namespace kiko
 		float rotate = 0;
 		if (kiko::g_inputSystem.GetKeyDown(SDL_SCANCODE_A)) rotate = -1;
 		if (kiko::g_inputSystem.GetKeyDown(SDL_SCANCODE_D)) rotate = 1;
-		transform.rotation += rotate * turnRate * g_time.GetDeltaTime();
+		//transform.rotation += rotate * turnRate * g_time.GetDeltaTime();
+		m_physicsComponent->ApplyTorque(rotate * turnRate);
 
 		float thrust = 0;
 		if (g_inputSystem.GetKeyDown(SDL_SCANCODE_W))
@@ -75,13 +76,13 @@ namespace kiko
 		if (kiko::g_inputSystem.GetKeyDown(SDL_SCANCODE_SPACE) && !kiko::g_inputSystem.GetPreviousKeyDown(SDL_SCANCODE_SPACE))
 		{//create weapon
 			auto weapon = INSTANTIATE(Weapon, "Rocket");
-			weapon->transform = { transform.position, transform.rotation, 1.0f };
+			weapon->transform = { transform.position, transform.rotation, 2.0f };
 			weapon->Initialize();
 			m_scene->Add(std::move(weapon));
 		}
 	}
 
-	void Player::OnCollision(Actor* other)
+	void Player::OnCollisionEnter(Actor* other)
 	{
 		if (other->tag == "Enemy") // could be a enemies bullet
 		{

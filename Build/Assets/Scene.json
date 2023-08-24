@@ -57,18 +57,22 @@
         "scale": 1.0,
         "rotation": 0
       },
-      "speed": 20,
-      "turnRate": 2.0,
+      "speed": 1,
+      "turnRate": 1.0,
       "components": [
         {
           "type": "SpriteComponent",
           "textureName": "Spaceship.png"
         },
         {
-          "type": "EnginePhysicsComponent"
+          "type": "Box2DPhysicsComponent",
+          "damping": 0.98,
+          "angularDamping": 2,
+            "gravityScale": 0
         },
         {
-          "type": "CircleCollisionComponent"
+          "type": "Box2DCollisionComponent",
+          "size": [ 32, 32 ]
         }
       ]
     },
@@ -82,18 +86,22 @@
         "scale": 1.0,
         "rotation": 0
       },
-      "speed": 15,
-      "turnRate": 2,
+      "speed": 1,
+      "turnRate": 0.1,
       "components": [
         {
           "type": "SpriteComponent",
           "textureName": "Spaceship.png"
         },
         {
-          "type": "EnginePhysicsComponent"
+          "type": "Box2DPhysicsComponent",
+          "damping": 0.98,
+          "angularDamping": 2,
+          "gravityScale": 0
         },
         {
-          "type": "CircleCollisionComponent"
+          "type": "Box2DCollisionComponent",
+          "size": [ 32, 32 ]
         }
       ]
     },

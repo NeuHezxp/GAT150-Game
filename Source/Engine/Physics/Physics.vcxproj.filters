@@ -7,11 +7,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="PhysicsSystem.h" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="PhysicsSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="PhysicsSystem.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

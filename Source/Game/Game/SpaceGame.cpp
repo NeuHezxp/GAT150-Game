@@ -46,7 +46,7 @@ bool SpaceGame::Initialize()
 	m_scene = std::make_unique<kiko::Scene>();
 	m_scene->Load("Scene.json");
 	m_scene->Initialize();
-	EVENT_SUBSCRIBE("OnAddPoints", SpaceGame::OnAddPoints); ///fix this
+	EVENT_SUBSCRIBE("OnAddPoints", SpaceGame::OnAddPoints); 
 	EVENT_SUBSCRIBE("OnPlayerDead",SpaceGame::OnPlayerDead);
 
 	return true;
@@ -108,17 +108,10 @@ void SpaceGame::Update(float dt)
 		{
 			m_spawnTimer = 0;
 			auto enemy = INSTANTIATE(kiko::Enemy, "Enemy");
-			enemy->transform = kiko::Transform({ kiko::random(kiko::g_renderer.getWidth()),kiko::random(kiko::g_renderer.getHeight()) }, kiko::randomf(kiko::TwoPi), 1);
+			enemy->transform = kiko::Transform({ kiko::random(kiko::g_renderer.getWidth()),kiko::random(kiko::g_renderer.getHeight()) }, kiko::randomf(kiko::TwoPi), kiko::random(1,5));
 			enemy->Initialize();
 			m_scene->Add(std::move(enemy));
-			/*auto enemy = std::make_unique<kiko::Enemy>(kiko::randomf(75.0f, 15.0f), kiko::Pi, kiko::Transform{ {kiko::random(kiko::g_renderer.getWidth()), kiko::random(kiko::g_renderer.getHeight())}, kiko::randomf(kiko::TwoPi), 4 });
-			enemy->tag = "Enemy";
-			enemy->m_game = this;*/
-			//create components
-			/*auto component = std::make_unique<kiko::SpriteComponent>();
-			component->m_texture = GET_RESOURCE(kiko::Texture, "spaceship.png", kiko::g_renderer);
-			enemy->AddComponent(std::move(component));*/
-		//	m_scene->Add(std::move(enemy));
+			
 		}
 
 		// Restart the game on 'R' key press

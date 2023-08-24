@@ -13,7 +13,7 @@ namespace kiko
 
 	// This function updates the scene by updating all actors in the scene.
 	 //It iterates through all actors, updates each one, and removes any destroyed actors from the scene.
-	 //Additionally, it checks for collisions between actors and calls their OnCollision functions if a collision is detected.
+	 //Additionally, it checks for collisions between actors and calls their OnCollisionEnter functions if a collision is detected.
 	void Scene::Update(float dt)
 	{
 		auto iter = m_actors.begin();
@@ -24,9 +24,9 @@ namespace kiko
 			// Otherwise, move to the next actor.
 			((*iter)->destroyed) ? iter = m_actors.erase(iter) : iter++;
 
-			///Check for collisions between actors
+			///Check Collisions
 			//check collisions
-			for (auto iter1 = m_actors.begin(); iter1 != m_actors.end(); iter1++)
+			/*for (auto iter1 = m_actors.begin(); iter1 != m_actors.end(); iter1++)
 			{
 				for (auto iter2 = std::next(iter1, 1); iter2 != m_actors.end(); iter2++)
 				{
@@ -38,11 +38,11 @@ namespace kiko
 					if (collision1->CheckCollision(collision2))
 
 					{
-						(*iter1)->OnCollision(iter2->get());
-						(*iter2)->OnCollision(iter1->get());
+						(*iter1)->OnCollisionEnter(iter2->get());
+						(*iter2)->OnCollisionEnter(iter1->get());
 					}
 				}
-			}
+			}*/
 		}
 	}
 
