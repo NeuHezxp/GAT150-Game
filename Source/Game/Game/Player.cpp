@@ -76,7 +76,7 @@ namespace kiko
 		if (kiko::g_inputSystem.GetKeyDown(SDL_SCANCODE_SPACE) && !kiko::g_inputSystem.GetPreviousKeyDown(SDL_SCANCODE_SPACE))
 		{//create weapon
 			auto weapon = INSTANTIATE(Weapon, "Rocket");
-			weapon->transform = { transform.position, transform.rotation, 2.0f };
+			weapon->transform = { transform.position + forward * 30, transform.rotation , 1 };
 			weapon->Initialize();
 			m_scene->Add(std::move(weapon));
 		}

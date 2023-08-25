@@ -44,7 +44,7 @@ bool SpaceGame::Initialize()
 
 	//create scene
 	m_scene = std::make_unique<kiko::Scene>();
-	m_scene->Load("Scene.json");
+	m_scene->Load("scenes/spacescene.json");
 	m_scene->Initialize();
 	EVENT_SUBSCRIBE("OnAddPoints", SpaceGame::OnAddPoints); 
 	EVENT_SUBSCRIBE("OnPlayerDead",SpaceGame::OnPlayerDead);
@@ -108,7 +108,7 @@ void SpaceGame::Update(float dt)
 		{
 			m_spawnTimer = 0;
 			auto enemy = INSTANTIATE(kiko::Enemy, "Enemy");
-			enemy->transform = kiko::Transform({ kiko::random(kiko::g_renderer.getWidth()),kiko::random(kiko::g_renderer.getHeight()) }, kiko::randomf(kiko::TwoPi), kiko::random(1,5));
+			enemy->transform = kiko::Transform({ kiko::random(kiko::g_renderer.getWidth()),kiko::random(kiko::g_renderer.getHeight()) }, kiko::randomf(kiko::TwoPi), kiko::random(1,2));
 			enemy->Initialize();
 			m_scene->Add(std::move(enemy));
 			

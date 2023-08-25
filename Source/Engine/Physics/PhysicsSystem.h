@@ -6,6 +6,8 @@
 #include "Framework/Singleton.h"
 #include <box2d/include/box2d/box2d.h>
 
+#include "ContactListener.h"
+
 //macros
 #define VEC2_TO_B2VEC2(vec) (*(b2Vec2*)(&vec)) // Convert vec2 to b2Vec2
 #define B2VEC2_TO_VEC2(vec) (*(kiko::Vector2*)(&vec))// Convert b2Vec2 to vec2
@@ -49,5 +51,6 @@ namespace kiko
     private:
 		float m_pixelsPerUnit = 48.0f;
 		std::unique_ptr<b2World> m_world; // Declare b2World
+		std::unique_ptr<ContactListener> m_contactListener;
     };
 } // namespace kiko
