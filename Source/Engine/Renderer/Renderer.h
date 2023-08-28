@@ -48,6 +48,7 @@ namespace kiko
 		//draw texture with x,y and optinal angle
 		void DrawTexture(class Texture* texture, float x, float y, float angle = 0.0f);
 		void DrawTexture(class Texture* texture, const Transform& transform);
+		void DrawTexture(class Texture* texture,Rect source,const Transform& transform);
 
 		//getters
 		int getWidth() const { return m_width; }

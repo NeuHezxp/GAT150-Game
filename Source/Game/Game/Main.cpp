@@ -57,7 +57,7 @@ int main(int argc, char* argv[])
 		// Initialize the game engine
 	kiko::MemoryTracker::Initialize();
 	kiko::seedRandom(static_cast<unsigned int>(time(nullptr)));
-	kiko::setFilePath("assets");
+	kiko::setFilePath("assets/Space");
 
 	// Initialize the renderer
 	kiko::g_renderer.Initialize();

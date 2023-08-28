@@ -6,6 +6,7 @@
 #include "Core/Random.h"
 #include "Logger.h"
 //math
+#include "Math/Rect.h"
 #include "Color.h"
 #include "Core/vector2.h"
 #include "Transform.h"

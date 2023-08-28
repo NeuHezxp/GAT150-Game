@@ -53,13 +53,16 @@ namespace kiko
 		{
 			if (actor->active) actor->Draw(renderer);
 		}
+		
 	}
+	
 
 	// This function adds an actor to the scene by moving it into the m_actors vector.
 	void Scene::Add(std::unique_ptr<Actor> actor)
 	{
 		actor->m_scene = this;
 		m_actors.push_back(std::move(actor));
+		
 	}
 
 	// This function removes all actors from the scene by clearing the m_actors vector.

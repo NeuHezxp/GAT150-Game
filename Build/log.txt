@@ -1,6 +1,7 @@
 INFO: Factory.h(70) Class Registered ModelRenderComponent
 INFO: Factory.h(70) Class Registered TextRenderComponent
 INFO: Factory.h(70) Class Registered SpriteComponent
+INFO: Factory.h(70) Class Registered SpriteAnimRenderComponent
 INFO: Factory.h(70) Class Registered EnginePhysicsComponent
 INFO: Factory.h(70) Class Registered CircleCollisionComponent
 INFO: Factory.h(70) Class Registered Box2DPhysicsComponent

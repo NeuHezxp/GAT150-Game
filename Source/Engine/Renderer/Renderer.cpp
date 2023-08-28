@@ -135,6 +135,26 @@ namespace kiko
 		// Render the texture with an optional rotation angle
 		SDL_RenderCopyEx(m_renderer, texture->GetTexture(), nullptr, &dest, RadiansToDegrees(mx.GetRotation()), nullptr, SDL_FLIP_NONE);
 	}
+
+	void Renderer::DrawTexture(Texture* texture, Rect source, const Transform& transform)
+	{
+		mat3 mx = transform.GetMatrix();
+
+		vec2 position = mx.GetTranslation();
+		// Get the size of the texture
+		vec2 size = vec2{source.w,source.h} *mx.GetScale();
+
+		// Create a destination rectangle for rendering the texture
+		SDL_Rect dest;
+		dest.x = static_cast<int>(position.x) - size.x * .5f; //shifting origin
+		dest.y = static_cast<int>(position.y) - size.y * .5f; //shifting origin
+		dest.w = static_cast<int>(size.x);
+		dest.h = static_cast<int>(size.y);
+
+		// Render the texture with an optional rotation angle
+		SDL_RenderCopyEx(m_renderer, texture->GetTexture(), (SDL_Rect*)&source,  & dest, RadiansToDegrees(mx.GetRotation()), nullptr, SDL_FLIP_NONE);
+	}
+
 	// Draw a point at the specified coordinates
 	void Renderer::DrawPoint(int x, int y)
 	{

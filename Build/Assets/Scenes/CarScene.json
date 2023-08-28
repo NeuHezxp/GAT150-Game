@@ -34,7 +34,7 @@
       "components": [
         {
           "type": "TextRenderComponent",
-          "fontName": "arcadeclassic.ttf",
+          "fontName": "Text/arcadeclassic.ttf",
           "fontSize": 48,
           "text": "CAR DERBY"
         }

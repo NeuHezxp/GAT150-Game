@@ -16,8 +16,8 @@
 bool SpaceGame::Initialize()
 {
 	// create font / text objects
-	m_font = GET_RESOURCE(kiko::Font, "arcadeclassic.ttf", 24);
-	m_scoreText = std::make_unique<kiko::Text>(GET_RESOURCE(kiko::Font, "arcadeclassic.ttf", 24));
+	m_font = GET_RESOURCE(kiko::Font, "text/arcadeclassic.ttf", 24);
+	m_scoreText = std::make_unique<kiko::Text>(GET_RESOURCE(kiko::Font, "text/arcadeclassic.ttf", 24));
 	m_scoreText->Create(kiko::g_renderer, "Score 0000", kiko::Color{ 1, 1, 1, 1 });
 
 	m_titleText = std::make_unique<kiko::Text>(m_font);
@@ -33,14 +33,14 @@ bool SpaceGame::Initialize()
 	m_winnerText->Create(kiko::g_renderer, "You Win", kiko::Color{ 1, 1, 1, 1 });
 
 	//load background music
-	kiko::g_audioSystem.AddAudio("background", "background.wav");
+	kiko::g_audioSystem.AddAudio("background", "Space/textures/background.wav");
 	//loading menu audio
 	kiko::g_audioSystem.AddAudio("menu", "restart.wav");
 
 	//loading audio
-	kiko::g_audioSystem.AddAudio("explosion", "explosion.wav");
-	kiko::g_audioSystem.AddAudio("hit", "laser_shoot.wav");
-	kiko::g_audioSystem.AddAudio("dash", "dashecho.wav");
+	kiko::g_audioSystem.AddAudio("explosion", "audio/explosion.wav");
+	kiko::g_audioSystem.AddAudio("hit", "audio/laser_shoot.wav");
+	kiko::g_audioSystem.AddAudio("dash", "audio/dashecho.wav");
 
 	//create scene
 	m_scene = std::make_unique<kiko::Scene>();

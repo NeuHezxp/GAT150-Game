@@ -25,12 +25,12 @@ using namespace std;
 int main(int argc, char* argv[])
 {
 
-
+	
 	INFO_LOG("Initializing Main")
 		// Initialize the game engine
 		kiko::MemoryTracker::Initialize();
 	kiko::seedRandom(static_cast<unsigned int>(time(nullptr)));
-	kiko::setFilePath("assets");
+	kiko::setFilePath("assets/CarDerby");
 
 	// Initialize the renderer
 	kiko::g_renderer.Initialize();
