@@ -20,7 +20,7 @@ namespace kiko {
 		void Enemy::Update(float dt)
 	{
 		Actor::Update(dt);
-		Actor::Initialize();
+		
 
 		m_physicsComponent = GetComponent<PhysicsComponent>();
 		kiko::vec2 forward = kiko::vec2{ 0, -1 }.Rotate(transform.rotation);
