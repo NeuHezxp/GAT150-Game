@@ -5,13 +5,14 @@
 #include "Audio/AudioSystem.h"
 #include "Renderer/ParticleSystem.h"
 #include <memory>
+#include "CarDerby.h"
 #include <cassert>
+
 #include <functional>
+
 #include <iostream>
 #include <vector>
 #include <thread>
-
-#include "Platformer.h"
 #include "Core/Json.h"
 #include "Framework/Factory.h"
 #include "Physics/PhysicsSystem.h"
@@ -22,15 +23,16 @@ using namespace std;
 
 
 
+
 int main(int argc, char* argv[])
 {
 
-	
+
 	INFO_LOG("Initializing Main")
 		// Initialize the game engine
 		kiko::MemoryTracker::Initialize();
 	kiko::seedRandom(static_cast<unsigned int>(time(nullptr)));
-	kiko::setFilePath("assets/Platformer");
+	kiko::setFilePath("assets/CarDerby");
 
 	// Initialize the renderer
 	kiko::g_renderer.Initialize();
@@ -43,12 +45,12 @@ int main(int argc, char* argv[])
 	kiko::PhysicsSystem::Instance().Initialize();
 
 	// Create the game
-	auto game = make_unique<Platformer>();
+	auto game = make_unique<CarDerby>();
 	game->Initialize();
 
 	INFO_LOG("Updating engine Components in main")
-	// Main Loop that runs the game
-	bool quit = false;
+		// Main Loop that runs the game
+		bool quit = false;
 	while (!quit)
 	{
 		// Update engine components
@@ -68,27 +70,23 @@ int main(int argc, char* argv[])
 		// Play background audio
 		kiko::g_audioSystem.PlayOneShot("background", true);
 
-		// Play a one-shot audio when space key is pressed
-		if (kiko::g_inputSystem.GetKeyDown(SDL_SCANCODE_SPACE))
-		{
-			kiko::g_audioSystem.PlayOneShot("hit");
-		}
-
 		// Update the game scene
 		game->Update(kiko::g_time.GetDeltaTime());
 
 		// Set the renderer color to black and clear the screen
 		kiko::g_renderer.setColor(0, 0, 0, 0);
 		kiko::g_renderer.BeginFrame();
-		//draws the particles
-		kiko::g_particleSystem.Draw(kiko::g_renderer);
+
+		// Draw the stars
+		kiko::g_renderer.setColor(255, 255, 255, 255);
+
 		// Draw the game
 		game->Draw(kiko::g_renderer);
-
-		
-
+		//Draw the particles
+		kiko::g_particleSystem.Draw(kiko::g_renderer);
 		// End the frame and present it
 		kiko::g_renderer.EndFrame();
 	}
+	stars.clear(); // clears the stars
 	return 0;
 }

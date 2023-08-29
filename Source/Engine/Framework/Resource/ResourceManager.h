@@ -41,13 +41,16 @@ namespace kiko
 			return std::dynamic_pointer_cast<T>(it->second);
 		}
 
-		// If the resource doesn't exist, create a new instance of it.
-		// 'res_t<T>' is a shared pointer to the type T.
+		/* If the resource doesn't exist, create a new instance of it.
+		 'res_t<T>' is a shared pointer to the type T.*/
 		res_t<T> resource = std::make_shared<T>();
-
 		// Call the Create function of the resource with the given filename and additional arguments (args...).
 		// The 'args...' is a variadic argument, meaning it can take any number of additional arguments.
-		resource->Create(filename, args...);
+		if (!resource->Create(filename, args...))
+		{
+			WARNING_LOG("Failed to create resource '%s'." << filename);
+			return res_t<T>();
+		}
 
 		// Add the new resource to the resource map with its filename as the key.
 		m_resources[filename] = resource;

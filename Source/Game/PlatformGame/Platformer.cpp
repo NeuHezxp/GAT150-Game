@@ -1,5 +1,7 @@
 
-#include "CarDerby.h"
+#include "Platformer.h"
+
+
 
 #include "Audio/AudioSystem.h"
 #include "Framework/Factory.h"
@@ -13,7 +15,7 @@
 // It creates font and text objects for displaying the score, title, game over text, timer, and winner text.
 // It also loads background music and other audio files.
 // Additionally, it initializes the game scene.
-bool CarDerby::Initialize()
+bool Platformer::Initialize()
 {
 	//load background music
 	kiko::g_audioSystem.AddAudio("background", "background.wav");
@@ -30,34 +32,34 @@ bool CarDerby::Initialize()
 	m_scene = std::make_unique<kiko::Scene>();
 	m_scene->Load("scenes/CarScene.json");
 	m_scene->Initialize();
-	EVENT_SUBSCRIBE("OnAddPoints", CarDerby::OnAddPoints);
-	EVENT_SUBSCRIBE("OnPlayerDead", CarDerby::OnPlayerDead);
+	EVENT_SUBSCRIBE("OnAddPoints", Platformer::OnAddPoints);
+	EVENT_SUBSCRIBE("OnPlayerDead", Platformer::OnPlayerDead);
 
 	return true;
 }
 
-bool CarDerby::Shutdown()
+bool Platformer::Shutdown()
 {
 	return false;
 }
 
-void CarDerby::Update(float dt)
+void Platformer::Update(float dt)
 {
 	switch (m_state)
 	{
-	case CarDerby::eState::Title:
+	case Platformer::eState::Title:
 	
 		//reset score/timer
 		m_score = 0;
 		m_gameTimer = 0.0f;
 		break;
-	case CarDerby::eState::StartGame:
+	case Platformer::eState::StartGame:
 		m_score = 0;
 		m_lives = 3;
 		m_state = eState::StartLevel;
 		break;
 
-	case CarDerby::eState::StartLevel:
+	case Platformer::eState::StartLevel:
 		m_scene->RemoveAll();
 
 		{
@@ -75,19 +77,19 @@ void CarDerby::Update(float dt)
 		m_state = eState::Game;
 		break;
 
-	case CarDerby::eState::Game:
+	case Platformer::eState::Game:
 		
 		break;
 	case eState::PlayerDeadStart:
 
 		break;
-	case CarDerby::eState::PlayerDead:
+	case Platformer::eState::PlayerDead:
 		
 		break;
-	case CarDerby::eState::GameOver:
+	case Platformer::eState::GameOver:
 		
 		break;
-	case CarDerby::eState::Winner:
+	case Platformer::eState::Winner:
 		m_scene->RemoveAll();
 		if (!m_waiting) // Check if the waiting process has started
 		{
@@ -111,17 +113,17 @@ void CarDerby::Update(float dt)
 	m_scene->Update(dt);
 }
 
-void CarDerby::Draw(kiko::Renderer& renderer)
+void Platformer::Draw(kiko::Renderer& renderer)
 {
 	m_scene->Draw(renderer);
 }
 
 
-void CarDerby::OnAddPoints(const kiko::Event& event)
+void Platformer::OnAddPoints(const kiko::Event& event)
 {
 	m_score += std::get<int>(event.data);
 }
-void CarDerby::OnPlayerDead(const kiko::Event& event)
+void Platformer::OnPlayerDead(const kiko::Event& event)
 {
 	m_lives--;
 	m_state = eState::PlayerDeadStart;
