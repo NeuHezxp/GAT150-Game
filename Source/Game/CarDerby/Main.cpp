@@ -87,6 +87,5 @@ int main(int argc, char* argv[])
 		// End the frame and present it
 		kiko::g_renderer.EndFrame();
 	}
-	stars.clear(); // clears the stars
 	return 0;
 }

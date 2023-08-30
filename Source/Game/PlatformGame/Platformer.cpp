@@ -30,6 +30,7 @@ bool Platformer::Initialize()
 
 	//create scene
 	m_scene = std::make_unique<kiko::Scene>();
+	m_scene->Load("scenes/tilemap.json");
 	m_scene->Load("scenes/CarScene.json");
 	m_scene->Initialize();
 	EVENT_SUBSCRIBE("OnAddPoints", Platformer::OnAddPoints);

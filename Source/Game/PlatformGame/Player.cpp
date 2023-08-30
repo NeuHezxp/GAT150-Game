@@ -12,7 +12,9 @@
 #include "Framework/Components/CollisionComponent.h"
 #include "Framework/Components/PhysicsComponent.h"
 #include "Framework/Components/SpriteComponent.h"
+
 #include "Framework/Resource/ResourceManager.h"
+
 
 #include "Renderer/Renderer.h"
 
@@ -55,6 +57,19 @@ namespace kiko
 		{//create weapon
 			kiko::vec2 up = kiko::vec2{ 0, -1 };
 			m_physicsComponent->SetVelocity(up * jump);
+		}
+
+		/// /animation
+		vec2 velocity = m_physicsComponent->m_velocity;
+		///check if Movin
+		if (std::fabs(velocity.x) > 0.2f)
+		{
+			m_spriteAnimComponent->flipH = (dir <0); //could change this later for car game final
+			m_spriteAnimComponent->SetSequence("run");
+		}
+		else
+		{
+			m_spriteAnimComponent->SetSequence("idle");
 		}
 	}
 

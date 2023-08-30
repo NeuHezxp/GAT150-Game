@@ -32,6 +32,26 @@
     <ClInclude Include="Enemy..h" />
     <ClInclude Include="Player.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Engine\Audio\Audio.vcxproj">
+      <Project>{3f0b5d9e-2093-4738-8bb6-f792cdf647b8}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Engine\Core\Core.vcxproj">
+      <Project>{2e09a753-3084-4c98-a6b2-eab18911a2f7}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Engine\Framework\Framework.vcxproj">
+      <Project>{d174040a-9ea1-441c-b706-6dc272f19cca}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Engine\Input\Input.vcxproj">
+      <Project>{b7dd0ab3-1b52-4a05-93d6-3123bc2213cf}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Engine\Physics\Physics.vcxproj">
+      <Project>{4248ed9b-8329-4e63-9d1d-eda86ca90ebc}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Engine\Renderer\Renderer.vcxproj">
+      <Project>{8bfaff4d-36d7-4b42-a942-6dba70a0792c}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>

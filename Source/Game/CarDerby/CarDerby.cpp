@@ -21,7 +21,7 @@ bool CarDerby::Initialize()
 	m_scoreText->Create(kiko::g_renderer, "Score 0000", kiko::Color{ 1, 1, 1, 1 });
 
 	m_titleText = std::make_unique<kiko::Text>(m_font);
-	m_titleText->Create(kiko::g_renderer, "asteroid", kiko::Color{ 1, 1, 1, 1 });
+	m_titleText->Create(kiko::g_renderer, "CarDerby", kiko::Color{ 1, 1, 1, 1 });
 
 	m_gameovertext = std::make_unique<kiko::Text>(m_font);
 	m_gameovertext->Create(kiko::g_renderer, "GameOVER", kiko::Color{ 1, 1, 1, 1 });
@@ -62,10 +62,12 @@ void CarDerby::Update(float dt)
 	switch (m_state)
 	{
 	case CarDerby::eState::Title:
+			m_scene->GetActorByName<kiko::Actor>("Background")->active = true;
 		if (kiko::g_inputSystem.GetKeyDown(SDL_SCANCODE_SPACE))
 		{
-			m_state = eState::StartGame;
 			m_scene->GetActorByName<kiko::Actor>("Background")->active = false;
+			m_state = eState::StartGame;
+			m_scene->GetActorByName<kiko::Actor>("GameBackground")->active = false;
 		}
 		//reset score/timer
 		m_score = 0;
@@ -84,7 +86,7 @@ void CarDerby::Update(float dt)
 			//Create Player
 
 			auto player = INSTANTIATE(kiko::Player, "Player");
-			player->transform = kiko::Transform({ 400,300 }, 0, 1);
+			player->transform = kiko::Transform({ 400,300 }, 0, .5);
 			player->Initialize();
 			m_scene->Add(std::move(player));
 
@@ -97,18 +99,20 @@ void CarDerby::Update(float dt)
 
 	case CarDerby::eState::Game:
 		m_scene->GetActorByName("Title")->active = false;
+		m_scene->GetActorByName<kiko::Actor>("GameBackground")->active = true;
 		m_gameTimer += dt; // a timer that counts down
 		m_spawnTimer += dt;
 		//if the player lasts long enough
-		if (m_gameTimer >= 30.0f)
+		if (m_gameTimer >= 30.0f) 
 		{
 			m_state = eState::Winner;
+			m_scene->GetActorByName<kiko::Actor>("GameBackground")->active = false;
 		}
 		if (m_spawnTimer >= m_spawnTime)
 		{
 			m_spawnTimer = 0;
 			auto enemy = INSTANTIATE(kiko::Enemy, "Enemy");
-			enemy->transform = kiko::Transform({ kiko::random(kiko::g_renderer.getWidth()),kiko::random(kiko::g_renderer.getHeight()) }, kiko::randomf(kiko::TwoPi), kiko::random(1, 2));
+			enemy->transform = kiko::Transform({ kiko::random(kiko::g_renderer.getWidth()),kiko::random(kiko::g_renderer.getHeight()) }, 1,.5);
 			enemy->Initialize();
 			m_scene->Add(std::move(enemy));
 

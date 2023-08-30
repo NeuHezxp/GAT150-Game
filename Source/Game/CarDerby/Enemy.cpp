@@ -30,6 +30,8 @@ namespace kiko {
 			transform.rotation = direction.Angle() + kiko::HalfPi;
 			//m_physicsComponent->ApplyTorque(turnAngle); fix this
 			float angle = kiko::vec2::SignedAngle(forward, direction.Normalized());
+			m_physicsComponent->ApplyTorque(angle);
+
 		}
 
 		m_physicsComponent->ApplyForce(forward * speed);
@@ -50,7 +52,7 @@ namespace kiko {
 			destroyed = true;
 			g_audioSystem.PlayOneShot("explosion");
 		}
-		kiko::EventManager::Instance().DispatchEvent("OnPlayerDead", 0);
+		//kiko::EventManager::Instance().DispatchEvent("OnPlayerDead", 0);
 	}
 
 	bool Enemy::Initialize()

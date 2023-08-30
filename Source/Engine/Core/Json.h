@@ -3,8 +3,9 @@
 #include "Vector2.h"
 #include <string>
 #include "Math/Rect.h"
-
+#include <vector>
 #include "Color.h"
+
 
 // Macro to read data from JSON with a given name
 #define READ_DATA(value, data) kiko::Json::Read(value, #data, data)
@@ -42,6 +43,11 @@ namespace kiko
 		static bool Read(const rapidjson::Value& value, const std::string& name, Color& data, bool required = false);
 		// Read Rect data from JSON with a given name
 		static bool Read(const rapidjson::Value& value, const std::string& name, Rect& data, bool required = false);
+		//Read tilemap vector
+		static bool Read(const rapidjson::Value& value, const std::string& name, std::vector<std::string>& data, bool required = false);
+		//reading tilemap ints
+		static bool Read(const rapidjson::Value& value, const std::string& name, std::vector<int>& data, bool required = false);
+
 	};
 
 	// Alias for rapidjson::Value, named json_t

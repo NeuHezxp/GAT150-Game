@@ -28,12 +28,9 @@ namespace kiko {
 		if (player)
 		{
 			kiko::Vector2 direction = player->transform.position - transform.position;
-			transform.rotation = direction.Angle() + kiko::HalfPi;
-			//m_physicsComponent->ApplyTorque(turnAngle); fix this
-			float angle = kiko::vec2::SignedAngle(forward, direction.Normalized());
+		m_physicsComponent->ApplyForce(direction.Normalized() * speed); 
 		}
 
-		m_physicsComponent->ApplyForce(forward * speed); 
 		//transform.position += forward * speed * kiko::g_time.GetDeltaTime();
 		transform.position.x = kiko::Wrap(transform.position.x, static_cast<float>(kiko::g_renderer.getWidth()));
 		transform.position.y = kiko::Wrap(transform.position.y, static_cast<float>(kiko::g_renderer.getHeight()));
@@ -71,16 +68,6 @@ namespace kiko {
 	bool Enemy::Initialize()
 	{
 		Actor::Initialize();
-		auto collisionComponent = GetComponent<kiko::CollisionComponent>();
-		if (collisionComponent)
-		{
-			auto renderComponent = GetComponent<kiko::RenderComponent>();
-			if (renderComponent)
-			{
-				float scale = transform.scale;
-				collisionComponent->m_radius = renderComponent->GetRadius() * scale;
-			}
-		}
 
 		return true;
 	}

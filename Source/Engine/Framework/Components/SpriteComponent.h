@@ -25,6 +25,9 @@ namespace kiko
 
 		// Data member for the rectangle defining the source of the sprite
 		Rect source;
+		//boolean to flip character
+		bool flipH = false;
+		vec2 origin = { 0.5f,0.5f };
 
 		// Name of the texture used by the sprite
 		std::string textureName;

@@ -12,6 +12,10 @@
 #include "Components/CircleCollisionComponent.h"
 #include "Components/Box2dPhysicsComponent.h"
 #include "Components/Box2dCollisionComponent.h"
+#include "Components/tilemapcomponent.h"
+
+
+#include "Framework/Components/SpriteAnimRenderComponent.h"
 #include "Resource/Resource.h"
 #include "Resource/ResourceManager.h"
 
