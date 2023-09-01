@@ -40,5 +40,22 @@ namespace kiko
 			m_fmodSystem->playSound(sound, 0, false, &channel);
 		}
 	}
+	void AudioSystem::StopSounds()
+	{
+		// Stop all currently playing channels
+		for (auto& soundEntry : m_sounds)
+		{
+			FMOD::Sound* sound = soundEntry.second;
+			if (sound)
+			{
+				FMOD::Channel* channel = nullptr;
+				FMOD_RESULT result = m_fmodSystem->playSound(sound, nullptr, true, &channel);
+				if (result == FMOD_OK && channel)
+				{
+					channel->stop();
+				}
+			}
+		}
+	}
 	AudioSystem g_audioSystem;
 }

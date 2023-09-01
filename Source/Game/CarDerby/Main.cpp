@@ -67,9 +67,6 @@ int main(int argc, char* argv[])
 			quit = true;
 		}
 
-		// Play background audio
-		kiko::g_audioSystem.PlayOneShot("background", true);
-
 		// Update the game scene
 		game->Update(kiko::g_time.GetDeltaTime());
 

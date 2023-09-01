@@ -33,12 +33,12 @@ bool CarDerby::Initialize()
 	m_winnerText->Create(kiko::g_renderer, "You Win", kiko::Color{ 1, 1, 1, 1 });
 
 	//load background music
-	kiko::g_audioSystem.AddAudio("background", "Space/textures/background.wav");
+	kiko::g_audioSystem.AddAudio("background", "Audio/background.ogg");
 	//loading menu audio
 	kiko::g_audioSystem.AddAudio("menu", "restart.wav");
 
 	//loading audio
-	kiko::g_audioSystem.AddAudio("explosion", "audio/explosion.wav");
+	kiko::g_audioSystem.AddAudio("CarEngine", "audio/Carengine.wav");
 	kiko::g_audioSystem.AddAudio("hit", "audio/laser_shoot.wav");
 	kiko::g_audioSystem.AddAudio("dash", "audio/dashecho.wav");
 
@@ -62,12 +62,18 @@ void CarDerby::Update(float dt)
 	switch (m_state)
 	{
 	case CarDerby::eState::Title:
-			m_scene->GetActorByName<kiko::Actor>("Background")->active = true;
+			m_scene->GetActorByName<kiko::Actor>("Title")->active = true;
+			m_scene->GetActorByName<kiko::Actor>("Wintext")->active = false;
+		//play menu audio
+			kiko::g_audioSystem.PlayOneShot("background", true);
+
 		if (kiko::g_inputSystem.GetKeyDown(SDL_SCANCODE_SPACE))
 		{
 			m_scene->GetActorByName<kiko::Actor>("Background")->active = false;
 			m_state = eState::StartGame;
 			m_scene->GetActorByName<kiko::Actor>("GameBackground")->active = false;
+
+			kiko::g_audioSystem.StopSounds();
 		}
 		//reset score/timer
 		m_score = 0;
@@ -86,9 +92,11 @@ void CarDerby::Update(float dt)
 			//Create Player
 
 			auto player = INSTANTIATE(kiko::Player, "Player");
-			player->transform = kiko::Transform({ 400,300 }, 0, .5);
+			player->transform = kiko::Transform({ 750,550 }, 0, .5);
 			player->Initialize();
 			m_scene->Add(std::move(player));
+
+		
 
 
 			m_scene->GetActorByName("Title")->active = true;
@@ -107,49 +115,36 @@ void CarDerby::Update(float dt)
 		{
 			m_state = eState::Winner;
 			m_scene->GetActorByName<kiko::Actor>("GameBackground")->active = false;
+			
 		}
+		
 		if (m_spawnTimer >= m_spawnTime)
 		{
 			m_spawnTimer = 0;
-			auto enemy = INSTANTIATE(kiko::Enemy, "Enemy");
-			enemy->transform = kiko::Transform({ kiko::random(kiko::g_renderer.getWidth()),kiko::random(kiko::g_renderer.getHeight()) }, 1,.5);
-			enemy->Initialize();
-			m_scene->Add(std::move(enemy));
 
-		}
+			// Spawn enemies in each corner
+			for (int i = 0; i < 3; ++i)
+			{
+				kiko::Vector2 spawnPosition;
 
-		// Restart the game on 'R' key press
-		if (kiko::g_inputSystem.GetKeyDown(SDL_SCANCODE_R))
-		{
-			kiko::g_audioSystem.PlayOneShot("menu");
-			m_state = eState::Title;
-			m_scene->RemoveAll();
+				// Determine spawn position for each corner
+				if (i == 0) // Top-left corner
+					spawnPosition = { 25, 30 };
+				else if (i == 1) // Top-right corner
+					spawnPosition = {  600, 30 };
+				else if (i == 2) // Bottom-left corner
+					spawnPosition = { 0, kiko::g_renderer.getHeight() -50 };
+
+				auto enemy = INSTANTIATE(kiko::Enemy, "Enemy");
+				enemy->transform = kiko::Transform(spawnPosition, 1, 0.5);
+				enemy->Initialize();
+				m_scene->Add(std::move(enemy));
+			}
+			
 		}
-		/// pressed mouse spawns particle
-		if (kiko::g_inputSystem.GetMouseButtonDown(0))
-		{
-			kiko::g_audioSystem.PlayOneShot("laser");
-			/// emitter stuff
-			kiko::EmitterData data;
-			data.burst = true;
-			data.burstCount = 100;
-			data.spawnRate = 200;
-			data.angle = 0;
-			data.angleRange = kiko::Pi;
-			data.lifetimeMin = 0.5f;
-			data.lifetimeMax = 1.5f;
-			data.speedMin = 50;
-			data.speedMax = 250;
-			data.damping = 0.5f;
-			data.color = kiko::Color{ 1, 0, 0, 1 };
-			kiko::Transform transform{ {kiko::g_inputSystem.GetMousePosition() }, 0, 1 };
-			auto emitter = std::make_unique<kiko::Emitter>(transform, data);
-			emitter->lifespan = 1.0f;
-			m_scene->Add(std::move(emitter));
-		} // emitter stuff
 		break;
 	case eState::PlayerDeadStart:
-		m_stateTimer = 3;
+		m_stateTimer = 5;
 		m_state = eState::PlayerDead;
 		m_stateTimer -= dt;
 
@@ -158,7 +153,7 @@ void CarDerby::Update(float dt)
 		m_stateTimer -= dt;
 		if (m_stateTimer <= 0)
 		{
-			m_state = eState::StartLevel;
+			m_state = eState::Title;
 		}
 		break;
 	case CarDerby::eState::GameOver:
@@ -171,8 +166,12 @@ void CarDerby::Update(float dt)
 		break;
 	case CarDerby::eState::Winner:
 		m_scene->RemoveAll();
+		m_scene->GetActorByName<kiko::Actor>("Crate")->active = false;
+
+		
 		if (!m_waiting) // Check if the waiting process has started
 		{
+			m_scene->GetActorByName<kiko::Actor>("Wintext")->active = true;
 			m_waiting = true; // Set the waiting flag to true
 			m_stateTimer = 1.0f; // Set the waiting time to 1 second (or any desired value)
 		}

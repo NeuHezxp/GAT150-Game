@@ -15,7 +15,7 @@
       "components": [
         {
           "type": "SpriteComponent",
-          "textureName": "textures/background.png"
+          "textureName": "textures/Track.png"
         }
       ]
     },
@@ -25,17 +25,17 @@
       "persistent": true,
       "transform": {
         "position": [
-          0,
-          20
+          -150,
+          25
         ],
-        "scale": 2,
+        "scale": 2.7,
         "rotation": 0
       },
       "components": [
         {
           "type": "SpriteComponent",
-          "textureName": "textures/Track.png",
-          "origin": [ 50, 50 ]
+          "textureName": "textures/Track.png"
+
         }
       ]
     },
@@ -64,10 +64,8 @@
         },
         {
           "type": "Box2DCollisionComponent",
-          "size": [
-            32,
-            32
-          ]
+          "size": [ 32, 64 ],
+          "restitution": 2
         }
       ]
     },
@@ -99,21 +97,20 @@
         },
         {
           "type": "Box2DCollisionComponent",
-          "size": [
-            32,
-            32
-          ]
+          "size": [ 32, 32 ],
+          "restitution": 1
         }
       ]
     },
     {
       "type": "Actor",
+      "name": "Rightwall",
       "tag": "Wall",
       "persistent": true,
       "transform": {
         "position": [
           400,
-          600
+          610
         ]
       },
       "components": [
@@ -123,13 +120,54 @@
         },
         {
           "type": "Box2DCollisionComponent",
-          "size": [ 600, 200 ],
+          "size": [ 800, 10 ],
           "restitution": 1
         }
       ]
     },
     {
       "type": "Actor",
+      "tag": "LeftWall",
+      "persistent": true,
+      "transform": {
+        "position": [ 1, 200 ],
+        "rotation": 0
+      },
+      "components": [
+        {
+          "type": "Box2DPhysicsComponent",
+          "isDynamic": false
+        },
+        {
+          "type": "Box2DCollisionComponent",
+          "size": [ 10, 750 ],
+          "restitution": 1
+        }
+      ]
+    },
+    {
+      "type": "Actor",
+      "name": "TopWall",
+      "tag": "Wall",
+      "persistent": true,
+      "transform": {
+        "position": [ 400, -70 ]
+      },
+      "components": [
+        {
+          "type": "Box2DPhysicsComponent",
+          "isDynamic": false
+        },
+        {
+          "type": "Box2DCollisionComponent",
+          "size": [ 800, 200 ],
+          "restitution": 1
+        }
+      ]
+    },
+    {
+      "type": "Actor",
+      "name": "BottomWall",
       "tag": "Wall",
       "persistent": true,
       "transform": {
@@ -141,11 +179,6 @@
 
       },
       "components": [
-        {
-          "type": "SpriteComponent",
-          "textureName": "textures/bluecars.png",
-          "scale": 2
-        },
         {
           "type": "Box2DPhysicsComponent",
           "isDynamic": false
@@ -160,7 +193,7 @@
     {
       "type": "Actor",
       "name": "Crate",
-      "tag": "Ground",
+      "tag": "Crate",
       "persistent": true,
       "transform": {
         "position": [
@@ -184,10 +217,70 @@
         },
         {
           "type": "Box2DCollisionComponent",
-          "restitution": 1
+          "restitution": 0.5
         }
       ]
-    },    
+    },
+    {
+      "type": "Actor",
+      "name": "Debris",
+      "tag": "Debris",
+      "persistent": true,
+      "transform": {
+        "position": [
+          400,
+          200
+        ],
+        "scale": 1,
+        "rotation": 0
+      },
+      "components": [
+        {
+          "type": "SpriteComponent",
+          "textureName": "textures/Debris1.png"
+        }
+      ]
+    },
+    {
+      "type": "Actor",
+      "name": "Debris2",
+      "tag": "Debris",
+      "persistent": true,
+      "transform": {
+        "position": [
+          400,
+          600
+        ],
+        "scale": 1,
+        "rotation": 0
+      },
+      "components": [
+        {
+          "type": "SpriteComponent",
+          "textureName": "textures/Debris2.png"
+        }
+      ]
+    },
+    {
+      "type": "Actor",
+      "name": "Debris3",
+      "tag": "Debris",
+      "persistent": true,
+      "transform": {
+        "position": [
+          200,
+          200
+        ],
+        "scale": 1,
+        "rotation": 0
+      },
+      "components": [
+        {
+          "type": "SpriteComponent",
+          "textureName": "textures/Debris3.png"
+        }
+      ]
+    },
     {
       "type": "Actor",
       "name": "Title",
@@ -207,6 +300,28 @@
           "fontSize": 48,
           "text": "Car Derby",
           "color": [ 1, 0, 0, 1 ]
+        }
+      ]
+    },
+    {
+      "type": "Actor",
+      "name": "Wintext",
+      "persistent": true,
+      "transform": {
+        "position": [
+          400,
+          300
+        ],
+        "scale": 2,
+        "rotation": 0
+      },
+      "components": [
+        {
+          "type": "TextRenderComponent",
+          "fontName": "Text/arcadeclassic.ttf",
+          "fontSize": 48,
+          "text": "You Win",
+          "color": [ 0, 1, 1, 1 ]
         }
       ]
     }

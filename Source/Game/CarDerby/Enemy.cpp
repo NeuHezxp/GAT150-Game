@@ -16,45 +16,115 @@
 
 namespace kiko {
 	CLASS_DEFINITION(Enemy)
-		void Enemy::Update(float dt)
-	{
-		Actor::Update(dt);
+        void Enemy::Update(float dt)
+    {
+        Actor::Update(dt);
+
+        m_physicsComponent = GetComponent<PhysicsComponent>();
+        kiko::vec2 forward = kiko::vec2{ 0, -1 }.Rotate(transform.rotation);
+
+        Player* player = m_scene->GetActor<Player>();
+        if (player)
+        {
+            kiko::Vector2 direction = player->transform.position - transform.position;
+            transform.rotation = direction.Angle() + kiko::HalfPi;
+
+            float angle = kiko::vec2::SignedAngle(forward, direction.Normalized());
+            m_physicsComponent->ApplyTorque(angle);
+        
+        
+        
+            Enemy* enemy = m_scene->GetActor<Enemy>();
+            if (enemy && enemy != this)
+            {
+                kiko::Vector2 direction = enemy->transform.position - transform.position;
+                transform.rotation = direction.Angle() + kiko::HalfPi;
+
+                float angle = kiko::vec2::SignedAngle(forward, direction.Normalized());
+                m_physicsComponent->ApplyTorque(angle);
+
+                // Debug statement
+                std::cout << "Enemy" << " targeting Enemy " << enemy << std::endl;
+            }
+            else
+            {
+                // Debug statement
+                std::cout << "Enemy " << " has no target" << std::endl;
+            }
+        }
 
 
-		m_physicsComponent = GetComponent<PhysicsComponent>();
-		kiko::vec2 forward = kiko::vec2{ 0, -1 }.Rotate(transform.rotation);
-		Player* player = m_scene->GetActor<Player>();
-		if (player)
-		{
-			kiko::Vector2 direction = player->transform.position - transform.position;
-			transform.rotation = direction.Angle() + kiko::HalfPi;
-			//m_physicsComponent->ApplyTorque(turnAngle); fix this
-			float angle = kiko::vec2::SignedAngle(forward, direction.Normalized());
-			m_physicsComponent->ApplyTorque(angle);
+        // Movement
+        float rotate = 0;
 
-		}
+        // Check if the enemy is moving forward before allowing rotation
+        if (currentSpeed > 0 || currentSpeed < -1)
+        {
+            // Gradual increase in rotation speed when turning
+            if (currentSpeed < 0 || currentSpeed < -1)
+            {
+                rotate = -0.01 * (1.0 + currentSpeed / speed);
+            }
+            if (currentSpeed < 0 || currentSpeed < -1)
+            {
+                rotate = 0.01 * (1.0 + currentSpeed / speed);
+            }
+        }
 
-		m_physicsComponent->ApplyForce(forward * speed);
-		//transform.position += forward * speed * kiko::g_time.GetDeltaTime();
-		transform.position.x = kiko::Wrap(transform.position.x, static_cast<float>(kiko::g_renderer.getWidth()));
-		transform.position.y = kiko::Wrap(transform.position.y, static_cast<float>(kiko::g_renderer.getHeight()));
+        // Apply rotation to the enemy
+        m_physicsComponent->ApplyTorque(rotate * turnRate);
+
+        // Gradual acceleration
+        currentSpeed = std::min(currentSpeed + acceleration * dt, speed);
+
+        // Apply max speed limit if exceeded
+        currentSpeed = std::min(currentSpeed, maxSpeed);
+
+        // Apply forward force based on current speed
+        m_physicsComponent->ApplyForce(forward * currentSpeed);
+
 		
 	}
 
 	void Enemy::OnCollisionEnter(Actor* other)
 	{
-		//dynamic_cast<Player*>(other); //can check for type
 
-		if (other->tag == "PlayerLaser")
+		if (other->tag == "Player" || "Enemy" && !this) // could be an enemy or enemy bullet
 		{
-			EventManager::Instance().DispatchEvent("AddPoints", 100);
-			m_game->AddPoints(100);
-			destroyed = true;
-			g_audioSystem.PlayOneShot("explosion");
-		}
-		//kiko::EventManager::Instance().DispatchEvent("OnPlayerDead", 0);
-	}
+			float damage = currentSpeed * speedToDamageFactor;
+			// Reduce player's health
+			health -= damage;
+			if (health <= 0)
+			{
+				destroyed = true;
+				// Emit particles for collision effect
+				kiko::EmitterData data;
+				data.burst = true;
+				data.burstCount = 300;
+				data.spawnRate = 200;
+				data.angle = 0;
+				data.angleRange = kiko::Pi;
+				data.lifetimeMin = 0.1f;
+				data.lifetimeMax = 0.3f;
+				data.speedMin = 50;
+				data.speedMax = 250;
+				data.damping = 0.8f;
+				data.color = kiko::Color{ 1, 0, 1, 1 };
+				kiko::Transform emitterTransform{ transform.position, 0, 1 };
+				auto emitter = std::make_unique<kiko::Emitter>(emitterTransform, data);
+				emitter->lifespan = 1.0f;
+				m_scene->Add(std::move(emitter));
 
+				// Check if player's health is depleted
+				if (health <= 0)
+				{
+					// Handle player's death
+					destroyed = true;
+				}
+
+			}
+		}
+	}
 	bool Enemy::Initialize()
 	{
 		Actor::Initialize();

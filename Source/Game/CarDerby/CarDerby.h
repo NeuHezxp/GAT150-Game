@@ -40,7 +40,7 @@ public:
 private:
 	eState m_state = eState::Title;
 	float m_spawnTimer = 0;
-	float m_spawnTime = 10.0f; //3 secs spawn enemy
+	float m_spawnTime = 10.0f; //10 secs spawn enemy
 
 	float m_stateTimer = 0;
 	float m_gameTimer = 0;
